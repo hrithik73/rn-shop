@@ -54,7 +54,7 @@ const AppTextInput = ({
             onChangeText={value => onChange(value)}
             onBlur={onBlur}
             style={styles.input}
-            secureTextEntry={showPass}
+            secureTextEntry={!showPass && isPass}
             value={value}
             {...rest}
           />

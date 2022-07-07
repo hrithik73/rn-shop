@@ -8,12 +8,14 @@ const Tab = createBottomTabNavigator();
 const Home = createNativeStackNavigator();
 
 const HomeNavigator = () => {
-  <Home.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Home.Screen name="Home" component={HomeScreen} />
-  </Home.Navigator>;
+  return (
+    <Home.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Home.Screen name="HomeScreen" component={HomeScreen} />
+    </Home.Navigator>
+  );
 };
 
 const MainNavigator = () => {

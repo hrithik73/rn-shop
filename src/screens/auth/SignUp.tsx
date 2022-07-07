@@ -1,8 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import auth from '@react-native-firebase/auth';
+
 import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
@@ -10,14 +12,41 @@ import colors from '../../constants/colors';
 type NavigationProps = NativeStackNavigationProp<any>;
 
 const SignUp = () => {
-  const {handleSubmit, control} = useForm({
+  const [showPass, setShowPass] = useState(false);
+
+  const iconPressHandler = () => {
+    setShowPass(!showPass);
+  };
+  const {handleSubmit, control, setError} = useForm({
     mode: 'onBlur',
   });
 
   const navigator = useNavigation<NavigationProps>();
 
   const submitHandler = (data: any) => {
-    console.log(data);
+    // console.log(data);
+    auth()
+      .createUserWithEmailAndPassword(data.email, data.pass)
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          setError('email', {
+            type: 'custom',
+            message: 'That email address is already in use!',
+          });
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          setError('email', {
+            type: 'custom',
+            message: 'The Email is invalid',
+          });
+        }
+
+        console.error(error);
+      });
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -51,16 +80,25 @@ const SignUp = () => {
       />
       <AppTextInput
         control={control}
-        name="password"
+        name="pass"
         placeholder="Password"
         rules={{
-          required: true,
-          pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
-            message: 'Please Enter a strong password',
+          required: {
+            value: true,
+            message: 'This Field is Required',
           },
+          minLength: {
+            value: 8,
+            message: 'Mini length for password is 8',
+          },
+          // pattern: {
+          //   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+          //   message: 'Please Enter a strong password',
+          // },
         }}
-        secureTextEntry={true}
+        onIconPress={iconPressHandler}
+        showPass={showPass}
+        isPass={true}
       />
       <AppButton
         customStyle={styles.signUpInbtn}

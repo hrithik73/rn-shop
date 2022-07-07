@@ -3,6 +3,8 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import auth from '@react-native-firebase/auth';
+
 import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
@@ -10,9 +12,14 @@ import colors from '../../constants/colors';
 type NavigationProps = NativeStackNavigationProp<any>;
 
 const Login = () => {
-  const [showPass, setShowPass] = useState(true);
-  console.log(showPass);
-  const {handleSubmit, control} = useForm({
+  //Todo:- Writing a better logic
+  const [showPass, setShowPass] = useState(false);
+
+  const iconPressHandler = () => {
+    setShowPass(!showPass);
+  };
+
+  const {handleSubmit, control, setError} = useForm({
     mode: 'onBlur',
   });
 
@@ -20,9 +27,23 @@ const Login = () => {
 
   const submitHandler = (data: any) => {
     console.log(data);
-  };
-  const iconPressHandler = () => {
-    setShowPass(!showPass);
+    auth()
+      .signInWithEmailAndPassword(data.email, data.pass)
+      .then(() => console.log('User Logged-In Successfully'))
+      .catch(error => {
+        if (error.code === 'auth/invalid-email') {
+          setError('email', {
+            type: 'custom',
+            message: 'Email Address is not Valid',
+          });
+        }
+        if (error.code === 'auth/wrong-password') {
+          setError('pass', {
+            type: 'custom',
+            message: 'Wrong Password',
+          });
+        }
+      });
   };
 
   return (
@@ -46,13 +67,20 @@ const Login = () => {
       />
       <AppTextInput
         control={control}
-        name="password"
+        name="pass"
         placeholder="Password"
         rules={{
-          required: true,
-          pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
-            message: 'Please Enter a strong password',
+          required: {
+            value: true,
+            message: 'This field is required',
+          },
+          // pattern: {
+          //   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+          //   message: 'Please Enter a strong password',
+          // },
+          minLength: {
+            value: 8,
+            message: 'Minimum 8 char is required',
           },
         }}
         onIconPress={iconPressHandler}

@@ -1,18 +1,10 @@
-import AppNavigator from './src/navigators';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import HomeScreen from './src/screens/main/HomeScreen';
+import Icon from 'react-native-vector-icons/Feather';
+import AppNavigator from './src/navigators';
+Icon.loadFont();
 
 const App = () => {
   return <AppNavigator />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default App;
