@@ -8,6 +8,7 @@ import auth from '@react-native-firebase/auth';
 import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
+import globalStyles from '../../constants/globalStyles';
 
 type NavigationProps = NativeStackNavigationProp<any>;
 
@@ -48,6 +49,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={globalStyles.authHeading}>RN SHOP</Text>
       <AppTextInput
         control={control}
         name="email"
@@ -107,14 +109,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    marginTop: 200,
+    marginTop: 150,
   },
   logInbtn: {
     marginTop: 20,
+    marginHorizontal: 30,
   },
   signUpInbtn: {
     backgroundColor: colors.grey,
     marginTop: 20,
+    marginHorizontal: 30,
   },
   orTxt: {
     paddingTop: 15,

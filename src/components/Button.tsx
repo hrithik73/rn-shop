@@ -5,7 +5,7 @@ import colors from '../constants/colors';
 type ButtonProps = {
   text: string;
   onPress: any;
-  customStyle: ViewStyle;
+  customStyle?: ViewStyle;
 };
 
 const AppButton = ({text, onPress, customStyle}: ButtonProps) => {
@@ -21,8 +21,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
-    paddingVertical: 10,
-    marginHorizontal: 30,
     borderRadius: 20,
   },
   buttonText: {
