@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AppButton from '../components/Button';
+import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
 import {HomeStackType} from '../types/NavigationTypes';
 
@@ -46,7 +47,7 @@ const ProductDetailScreen = () => {
 const styles = StyleSheet.create({
   buyNowBtn: {
     marginVertical: 12,
-    backgroundColor: '#FBD816',
+    backgroundColor: colors.yellow,
   },
   container: {
     flex: 1,

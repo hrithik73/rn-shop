@@ -20,6 +20,7 @@ const ProductScreen = () => {
   useEffect(() => {
     getData();
   }, []);
+  // console.log(products[0].title);
   return (
     <View>
       <Text>{route.params.catID}</Text>

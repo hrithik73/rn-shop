@@ -10,7 +10,7 @@ import HomeScreen from '../screens/main/HomeScreen';
 import UserScreen from '../screens/main/UserScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import ProductScreen from '../screens/ProductScreen';
-import {HomeStackType} from '../types/navigationTypes';
+import {HomeStackType} from '../types/NavigationTypes';
 
 const Tab = createBottomTabNavigator();
 const Home = createNativeStackNavigator<HomeStackType>();
