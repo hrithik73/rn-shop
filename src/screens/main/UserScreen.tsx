@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import auth from '@react-native-firebase/auth';
 

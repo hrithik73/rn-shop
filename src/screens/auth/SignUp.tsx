@@ -9,11 +9,13 @@ import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
 import globalStyles from '../../constants/globalStyles';
+import useFirestore from '../../hooks/useFirestore';
 
 type NavigationProps = NativeStackNavigationProp<any>;
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
+  const {addUserToDB} = useFirestore();
 
   const iconPressHandler = () => {
     setShowPass(!showPass);
@@ -25,11 +27,15 @@ const SignUp = () => {
   const navigator = useNavigation<NavigationProps>();
 
   const submitHandler = (data: any) => {
-    // console.log(data);
     auth()
       .createUserWithEmailAndPassword(data.email, data.pass)
-      .then(() => {
-        console.log('User account created & signed in!');
+      .then(userRef => {
+        // Add user to DB
+        addUserToDB({
+          userID: userRef.user.uid,
+          name: data.name,
+          email: data.email,
+        });
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {

@@ -1,9 +1,32 @@
 import firestore from '@react-native-firebase/firestore';
 
+//*******- A custom hook for all the Firestore actions **********/
+
+/**
+ * All the types are defined here
+ */
 type ProductByCatProps = {
   lim: string;
   catID: string;
 };
+
+type AddUserToDBProps = {
+  userID: string;
+  name: string;
+  email: string;
+};
+
+type AddToCartProps = {
+  userId: string | undefined;
+  product: any;
+};
+
+type RemoveFromCart = {
+  userID: string;
+  productID: string;
+};
+
+/********** All the functions are defined here to perform any kind of action in Firebase **************/
 
 const useFirestore = () => {
   /**
@@ -58,7 +81,80 @@ const useFirestore = () => {
     return product;
   };
 
-  return {getCollection, getProductByCatID, getProductByProductId};
+  // Add user to DB after successfully signUP
+  const addUserToDB = async ({ userID, name, email }: AddUserToDBProps) => {
+    await firestore()
+      .collection('users')
+      .doc(userID)
+      .set({
+        name: name,
+        email: email,
+        userID: userID,
+      })
+      .then(() => {
+        console.log('User Created Successfully');
+      });
+  };
+  /**
+   * Add product to cart
+   * @param param0
+   */
+
+  const addToCart = async ({ userId, product }: AddToCartProps) => {
+    await firestore()
+      .collection('users')
+      .doc(userId)
+      .collection('cart')
+      .doc(product.productID)
+      .set({
+        productData: product,
+        qnty: 1,
+      })
+      .then(() => {
+        console.log('Product Added');
+      });
+  };
+  /**
+   * Function to get the Cart data
+   * @param userID userID to identify the data
+   * @returns returns an Array of products
+   */
+  const getCartData = async (userID?: string) => {
+    let cartData: object[] = [];
+    await firestore()
+      .collection('users')
+      .doc(userID)
+      .collection('cart')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          cartData.push(doc.data());
+        });
+      });
+    return cartData;
+  };
+
+  const removeFromCart = async ({ userID, productID }: RemoveFromCart) => {
+    await firestore()
+      .collection('users')
+      .doc(userID)
+      .collection('cart')
+      .doc(productID)
+      .delete()
+      .then(() => {
+        console.log('Item Deleted Successfully');
+      });
+  };
+
+  return {
+    getCollection,
+    getProductByCatID,
+    getProductByProductId,
+    addUserToDB,
+    addToCart,
+    getCartData,
+    removeFromCart,
+  };
 };
 
 export default useFirestore;

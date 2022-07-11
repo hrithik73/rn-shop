@@ -1,42 +1,76 @@
+import { firebase } from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Animated,
+  Button,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Feather';
+import useFirestore from '../hooks/useFirestore';
+import { HomeStackType } from '../types/NavigationTypes';
 
-const CartCard = () => {
-  const product = {
-    title:
-      "LOUIS DEVIN Analogue Women's Watch(Blue Dial Silver Colored Strap)-LD-L144-BLU-CH",
-    imgUrl:
-      'https://m.media-amazon.com/images/I/81jnv+iz+ZL._AC_SX444_SY639_QL65_.jpg',
-    price: '299',
-    isFreeDelivery: false,
-  };
+type CartProps =
+  | {
+      title: string;
+      imgUrl: string;
+      price: number;
+      isFreeDelivery: boolean;
+    }
+  | any;
+
+type NavigationProps = NativeStackNavigationProp<HomeStackType>;
+
+const CartCard = ({ product }: CartProps) => {
+  const navigation = useNavigation<NavigationProps>();
+  const { removeFromCart } = useFirestore();
+  const user = firebase.auth().currentUser;
+
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <Image source={{uri: product.imgUrl}} style={styles.img} />
-          <View
-            style={{
-              flexShrink: 1,
-            }}>
+        <Pressable
+          style={styles.topContainer}
+          onPress={() =>
+            navigation.navigate('ProductDetails', {
+              productID: product.productData.productID,
+            })
+          }>
+          <Image
+            source={{ uri: product.productData.imgUrl }}
+            style={styles.img}
+          />
+          <View style={styles.rightContainer}>
             <Text numberOfLines={2} style={styles.title}>
-              {product.title}
+              {product.productData.title}
             </Text>
-            <Text style={styles.price}>₹{product.price}</Text>
-            <Text style={{paddingTop: 10}}>Eligible for Free Shipping</Text>
+            <Text style={styles.price}>₹{product.productData.price}</Text>
+            <Text style={styles.freeShipping}>Eligible for Free Shipping</Text>
           </View>
-        </View>
+        </Pressable>
         <View style={styles.bottomTrayContainer}>
-          <View style={styles.lowerIcon}>
-            <Icon name="trash" size={20} />
+          <Pressable
+            onPress={() =>
+              removeFromCart({
+                productID: product.productData.productID,
+                userID: user?.uid,
+              })
+            }
+            style={styles.deleteIcon}>
+            <Icon name="trash" size={20} color="red" />
+          </Pressable>
+          {/* <View style={styles.productQuantity}>
+            <Text>{product.qnty}</Text>
           </View>
-          <View style={styles.productQuantity}>
-            <Text>1</Text>
-          </View>
-          <View style={styles.plusIcon}>
+          <Pressable style={styles.plusIcon}>
             <Icon name="plus" size={20} />
-          </View>
+          </Pressable> */}
         </View>
       </View>
     </>
@@ -47,8 +81,6 @@ const styles = StyleSheet.create({
     height: 40,
     flexDirection: 'row',
     alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
     borderWidth: 0.2,
     borderRadius: 10,
     margin: 5,
@@ -58,7 +90,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   container: {
-    // flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
     margin: 5,
@@ -76,14 +107,33 @@ const styles = StyleSheet.create({
   },
   price: {
     fontWeight: 'bold',
+    paddingTop: 10,
     fontSize: 20,
   },
   plusIcon: {
-    paddingHorizontal: 30,
+    width: 40,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  productQuantity: {},
-  lowerIcon: {
-    paddingHorizontal: 30,
+  productQuantity: {
+    width: 40,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteIcon: {
+    width: 40,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightContainer: {
+    flexShrink: 1,
+    padding: 10,
+  },
+  freeShipping: {
+    paddingTop: 8,
   },
 });
 
