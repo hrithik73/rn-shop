@@ -1,7 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
 
-//*******- A custom hook for all the Firestore actions **********/
-
 /**
  * All the types are defined here
  */
@@ -10,7 +8,7 @@ type ProductByCatProps = {
   catID: string;
 };
 
-type AddUserToDBProps = {
+type AddUserToDBTypes = {
   userID: string;
   name: string;
   email: string;
@@ -82,7 +80,7 @@ const useFirestore = () => {
   };
 
   // Add user to DB after successfully signUP
-  const addUserToDB = async ({ userID, name, email }: AddUserToDBProps) => {
+  const addUserToDB = async ({ userID, name, email }: AddUserToDBTypes) => {
     await firestore()
       .collection('users')
       .doc(userID)
