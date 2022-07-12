@@ -1,6 +1,6 @@
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 

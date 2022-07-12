@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { Provider } from 'react-redux';
 import AppNavigator from './src/navigators';
-Icon.loadFont();
+import store from './src/redux/store';
 
 const App = () => {
-  return <AppNavigator />;
+  useEffect(() => {
+    Icon.loadFont();
+  });
+
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
 };
 
 export default App;

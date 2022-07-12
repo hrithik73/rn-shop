@@ -1,18 +1,28 @@
 import { firebase } from '@react-native-firebase/auth';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { connect } from 'react-redux';
 import AppButton from '../components/Button';
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
+import { addToCart, removeFromCart } from '../redux/actions';
 import { HomeStackType } from '../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 type NavigationProps = NativeStackNavigationProp<HomeStackType>;
+type ProductDetailScreenProps = {
+  qnty: number;
+  addToCartRedux: (arg0: any) => void;
+  // onIncrement: () => void;
+};
 
-const ProductDetailScreen = () => {
+const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
+  qnty,
+  addToCartRedux,
+}) => {
   const route = useRoute<ProductScreenRouteProp>();
   const navigation = useNavigation<NavigationProps>();
 
@@ -40,6 +50,7 @@ const ProductDetailScreen = () => {
   const addToCartHandler = () => {
     addToCart({ product: product, userId: user?.uid });
     navigation.navigate('Cart');
+    addToCartRedux(product);
   };
 
   useEffect(() => {
@@ -107,4 +118,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductDetailScreen;
+const mapStateToProps = (state: any) => ({
+  qnty: state.cart.qnty,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  addToCartRedux: (product: any) => dispatch(addToCart(product)),
+  // onDecrement: () => dispatch(removeFromCart()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProductDetailScreen);
