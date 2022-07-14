@@ -1,10 +1,28 @@
+import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
+
 import React, { useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 
-import auth from '@react-native-firebase/auth';
+const config = {
+  screens: {
+    Home: {
+      screens: {
+        ProductDetails: {
+          path: 'product/:productID',
+        },
+      },
+    },
+    User: 'user',
+  },
+};
+const linking = {
+  prefixes: ['rnshop://', 'https://rnshop.com'],
+  config,
+};
 
 const AppNavigator = () => {
   const [initializing, setInitializing] = useState(true);
@@ -29,7 +47,9 @@ const AppNavigator = () => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      linking={linking}
+      fallback={<ActivityIndicator color="blue" size="large" />}>
       {user ? <MainNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
