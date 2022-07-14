@@ -2,13 +2,13 @@ import { firebase } from '@react-native-firebase/auth';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { FC, useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
 import AppButton from '../components/Button';
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
-import { addToCart, removeFromCart } from '../redux/actions';
+import { addToCart } from '../redux/actions';
 import { HomeStackType } from '../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
@@ -36,9 +36,11 @@ const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
   });
 
   const user = firebase.auth().currentUser;
+
   /**
-   * Function to run on the time of component mounting and will the product data
-   */
+   * Function to run on the time of component mounting and will get the product data
+   **/
+
   const getProduct = async () => {
     const productTempData = await getProductByProductId(route.params.productID);
     setProduct(productTempData!);
@@ -50,7 +52,6 @@ const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
   const addToCartHandler = () => {
     addToCart({ product: product, userId: user?.uid });
     navigation.navigate('Cart');
-    addToCartRedux(product);
   };
 
   useEffect(() => {

@@ -1,6 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 
 import useFirestore from '../hooks/useFirestore';
-import {HomeStackType} from '../types/NavigationTypes';
+import { HomeStackType } from '../types/NavigationTypes';
 
 type NavigationProps = NativeStackNavigationProp<HomeStackType>;
 
-const CategoriesItem = ({item}: any) => {
+const CategoriesItem = ({ item }: any) => {
   const navigation = useNavigation<NavigationProps>();
 
   return (
@@ -26,13 +26,13 @@ const CategoriesItem = ({item}: any) => {
           catID: item.catID,
         })
       }>
-      <Image source={{uri: item.imgUrl}} style={styles.img} />
+      <Image source={{ uri: item.imgUrl }} style={styles.img} />
     </TouchableOpacity>
   );
 };
 
 const CategoriesScreen = () => {
-  const {getCollection} = useFirestore();
+  const { getCollection } = useFirestore();
   const [categories, setCategories] = useState<Array<object>>([]);
 
   const getCategoriesFromFireStore = async () => {
@@ -51,7 +51,7 @@ const CategoriesScreen = () => {
         data={categories}
         numColumns={2}
         keyExtractor={item => item.catID}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return <CategoriesItem item={item} />;
         }}
       />

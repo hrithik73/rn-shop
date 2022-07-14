@@ -1,9 +1,9 @@
 import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
 import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
@@ -15,12 +15,12 @@ type NavigationProps = NativeStackNavigationProp<any>;
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
-  const {addUserToDB} = useFirestore();
+  const { addUserToDB } = useFirestore();
 
   const iconPressHandler = () => {
     setShowPass(!showPass);
   };
-  const {handleSubmit, control, setError} = useForm({
+  const { handleSubmit, control, setError } = useForm({
     mode: 'onBlur',
   });
 

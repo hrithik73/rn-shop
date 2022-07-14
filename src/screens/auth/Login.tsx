@@ -1,9 +1,9 @@
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
 import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
@@ -20,7 +20,7 @@ const Login = () => {
     setShowPass(!showPass);
   };
 
-  const {handleSubmit, control, setError} = useForm({
+  const { handleSubmit, control, setError } = useForm({
     mode: 'onBlur',
   });
 

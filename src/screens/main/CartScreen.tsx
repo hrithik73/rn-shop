@@ -5,11 +5,12 @@ import LottieView from 'lottie-react-native';
 
 import CartCard from '../../components/CartCard';
 import useFirestore from '../../hooks/useFirestore';
+import { useFocusEffect } from '@react-navigation/native';
 
 const CartScreen = () => {
   const { getCartData } = useFirestore();
   const [cartData, setCartData] = useState<Object[]>([]);
-  const [refreshing, setRefreshing] = useState(true);
+  const [refreshing, setRefreshing] = useState<boolean>(true);
 
   const user = firebase.auth().currentUser;
 
@@ -20,13 +21,21 @@ const CartScreen = () => {
   };
 
   useEffect(() => {
+    console.log('useEffect Exicuted ->>');
     getInitialCartData();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Do something when the screen is focused
+      getInitialCartData();
+      return () => {};
+    }, []),
+  );
 
   return (
     <View style={{ padding: 10 }}>
       <Text style={styles.heading}>Cart</Text>
-
       <FlatList
         data={cartData}
         keyExtractor={item => item.productID}

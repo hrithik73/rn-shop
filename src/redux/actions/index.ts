@@ -1,3 +1,4 @@
+import useFirestore from '../../hooks/useFirestore';
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -21,3 +22,7 @@ export const addToCart = (product: any) => ({
 export const removeFromCart = () => ({
   type: REMOVE_FROM_CART,
 });
+
+export const addToCartAsync = () => {
+  const { addToCart } = useFirestore();
+};
