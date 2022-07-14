@@ -11,7 +11,7 @@ import colors from '../../constants/colors';
 import globalStyles from '../../constants/globalStyles';
 import useFirestore from '../../hooks/useFirestore';
 
-type NavigationProps = NativeStackNavigationProp<any>;
+type HomeStackNavigationProps = NativeStackNavigationProp<any>;
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
@@ -24,7 +24,7 @@ const SignUp = () => {
     mode: 'onBlur',
   });
 
-  const navigator = useNavigation<NavigationProps>();
+  const navigator = useNavigation<HomeStackNavigationProps>();
 
   const submitHandler = (data: any) => {
     auth()

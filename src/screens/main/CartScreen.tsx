@@ -1,15 +1,16 @@
 import { firebase } from '@react-native-firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { FlatList, RefreshControl, StyleSheet, Text, View } from 'react-native';
-import LottieView from 'lottie-react-native';
 
 import CartCard from '../../components/CartCard';
 import useFirestore from '../../hooks/useFirestore';
 import { useFocusEffect } from '@react-navigation/native';
+import Heading from '../../components/Heading';
+import { CartItemProps } from '../../types';
 
 const CartScreen = () => {
   const { getCartData } = useFirestore();
-  const [cartData, setCartData] = useState<Object[]>([]);
+  const [cartData, setCartData] = useState<CartItemProps[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(true);
 
   const user = firebase.auth().currentUser;
@@ -21,7 +22,6 @@ const CartScreen = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect Exicuted ->>');
     getInitialCartData();
   }, []);
 
@@ -32,14 +32,17 @@ const CartScreen = () => {
       return () => {};
     }, []),
   );
+  console.log('CartData =>>>>>>>>>>', cartData);
 
   return (
-    <View style={{ padding: 10 }}>
-      <Text style={styles.heading}>Cart</Text>
+    <View style={styles.container}>
+      <Heading>Cart</Heading>
       <FlatList
         data={cartData}
-        keyExtractor={item => item.productID}
-        renderItem={({ item }) => <CartCard product={item} />}
+        keyExtractor={item => item.productData.productID}
+        renderItem={({ item }) => (
+          <CartCard productData={item.productData} qnty={item.qnty} />
+        )}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -53,14 +56,7 @@ const CartScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  heading: {
-    fontSize: 22,
-    fontWeight: '500',
-    // padding: 10,
-    margin: 10,
+    padding: 10,
   },
 });
 

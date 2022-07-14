@@ -1,12 +1,9 @@
 import firestore from '@react-native-firebase/firestore';
+import { CartItemProps, ProductType } from '../types';
 
 /**
  * All the types are defined here
  */
-type ProductByCatProps = {
-  lim: string;
-  catID: string;
-};
 
 type AddUserToDBTypes = {
   userID: string;
@@ -31,13 +28,13 @@ const useFirestore = () => {
    * A function to get the collection from firestore
    */
   const getCollection = async (collectName: string) => {
-    let collectionData: object[] = [];
+    let collectionData: ProductType[] = [];
     await firestore()
       .collection(collectName)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          collectionData.push(doc.data());
+          collectionData.push(doc.data() as ProductType);
         });
       });
     return collectionData;
@@ -47,7 +44,7 @@ const useFirestore = () => {
    * Get Products by CatID
    */
   const getProductByCatID = async (catId: string, lim: number = 10) => {
-    let productsBycatID: object[] = [];
+    let productsBycatID: ProductType[] = [];
     await firestore()
       .collection('products')
       .where('catID', '==', catId)
@@ -55,7 +52,7 @@ const useFirestore = () => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          productsBycatID.push(doc.data());
+          productsBycatID.push(doc.data() as ProductType);
         });
       });
     return productsBycatID;
@@ -66,14 +63,24 @@ const useFirestore = () => {
    * @param productID
    */
   const getProductByProductId = async (productID: string) => {
-    let product;
+    let product: ProductType = {
+      catID: '',
+      deliveryDate: '',
+      imgUrl: '',
+      isFreeDelivery: false,
+      oldPrice: '',
+      price: '',
+      productID: '',
+      rating: 1,
+      title: '',
+    };
     await firestore()
       .collection('products')
       .where('productID', '==', productID)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          product = doc.data();
+          product = doc.data() as ProductType;
         });
       });
     return product;
@@ -118,7 +125,7 @@ const useFirestore = () => {
    * @returns returns an Array of products
    */
   const getCartData = async (userID?: string) => {
-    let cartData: object[] = [];
+    let cartData: CartItemProps[] = [];
     await firestore()
       .collection('users')
       .doc(userID)
@@ -126,7 +133,7 @@ const useFirestore = () => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          cartData.push(doc.data());
+          cartData.push(doc.data() as CartItemProps);
         });
       });
     return cartData;

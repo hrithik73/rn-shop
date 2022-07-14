@@ -10,11 +10,15 @@ import HomeScreen from '../screens/main/HomeScreen';
 import UserScreen from '../screens/main/UserScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import ProductScreen from '../screens/ProductScreen';
-import { HomeStackType } from '../types/NavigationTypes';
+import {
+  CartStackType,
+  HomeStackType,
+  RootStackType,
+} from '../types/NavigationTypes';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootStackType>();
 const Home = createNativeStackNavigator<HomeStackType>();
-const Cart = createNativeStackNavigator();
+const Cart = createNativeStackNavigator<CartStackType>();
 
 const HomeNavigator = () => {
   return (

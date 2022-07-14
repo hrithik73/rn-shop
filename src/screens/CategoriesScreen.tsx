@@ -1,22 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import Heading from '../components/Heading';
 
 import useFirestore from '../hooks/useFirestore';
-import { HomeStackType } from '../types/NavigationTypes';
-
-type NavigationProps = NativeStackNavigationProp<HomeStackType>;
+import { ProductType } from '../types';
+import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
 const CategoriesItem = ({ item }: any) => {
-  const navigation = useNavigation<NavigationProps>();
+  const navigation = useNavigation<HomeStackNavigationProps>();
 
   return (
     <TouchableOpacity
@@ -33,7 +31,7 @@ const CategoriesItem = ({ item }: any) => {
 
 const CategoriesScreen = () => {
   const { getCollection } = useFirestore();
-  const [categories, setCategories] = useState<Array<object>>([]);
+  const [categories, setCategories] = useState<ProductType[]>([]);
 
   const getCategoriesFromFireStore = async () => {
     const categoriesData = await getCollection('categories');
@@ -46,7 +44,7 @@ const CategoriesScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Shop by Categories</Text>
+      <Heading>Shop by Categories</Heading>
       <FlatList
         data={categories}
         numColumns={2}

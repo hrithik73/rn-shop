@@ -1,18 +1,22 @@
 import { firebase } from '@react-native-firebase/auth';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { FC, useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
+
 import AppButton from '../components/Button';
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
 import { addToCart } from '../redux/actions';
-import { HomeStackType } from '../types/NavigationTypes';
+import { ProductType } from '../types';
+import {
+  HomeStackType,
+  HomeStackNavigationProps,
+} from '../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
-type NavigationProps = NativeStackNavigationProp<HomeStackType>;
+
 type ProductDetailScreenProps = {
   qnty: number;
   addToCartRedux: (arg0: any) => void;
@@ -24,15 +28,20 @@ const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
   addToCartRedux,
 }) => {
   const route = useRoute<ProductScreenRouteProp>();
-  const navigation = useNavigation<NavigationProps>();
+  const navigation = useNavigation<HomeStackNavigationProps>();
 
   const { getProductByProductId, addToCart } = useFirestore();
 
-  const [product, setProduct] = useState({
-    title: '',
-    imgUrl: 'https://picsum.photos/200/300',
+  const [product, setProduct] = useState<ProductType>({
+    catID: '',
+    deliveryDate: '',
+    imgUrl: '',
+    isFreeDelivery: false,
+    oldPrice: '',
     price: '',
     productID: '',
+    rating: 1,
+    title: '',
   });
 
   const user = firebase.auth().currentUser;
@@ -43,7 +52,7 @@ const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
 
   const getProduct = async () => {
     const productTempData = await getProductByProductId(route.params.productID);
-    setProduct(productTempData!);
+    setProduct(productTempData);
   };
 
   /**

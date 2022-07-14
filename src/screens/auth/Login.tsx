@@ -1,6 +1,5 @@
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
@@ -9,8 +8,7 @@ import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
 import globalStyles from '../../constants/globalStyles';
-
-type NavigationProps = NativeStackNavigationProp<any>;
+import { AuthStackNavigatorProps } from '../../types/NavigationTypes';
 
 const Login = () => {
   //Todo:- Writing a better logic
@@ -24,7 +22,7 @@ const Login = () => {
     mode: 'onBlur',
   });
 
-  const navigator = useNavigation<NavigationProps>();
+  const navigator = useNavigation<AuthStackNavigatorProps>();
 
   const submitHandler = (data: any) => {
     console.log(data);

@@ -20,7 +20,7 @@ const config = {
   },
 };
 const linking = {
-  prefixes: ['rnshop://', 'https://rnshop.com'],
+  prefixes: ['rnshop://'],
   config,
 };
 

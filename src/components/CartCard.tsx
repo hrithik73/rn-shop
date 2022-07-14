@@ -1,6 +1,5 @@
 import { firebase } from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import {
   Animated,
@@ -14,21 +13,14 @@ import {
 import { Swipeable } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Feather';
 import useFirestore from '../hooks/useFirestore';
-import { HomeStackType } from '../types/NavigationTypes';
+import { CartItemProps } from '../types';
+import {
+  HomeStackType,
+  HomeStackNavigationProps,
+} from '../types/NavigationTypes';
 
-type CartProps =
-  | {
-      title: string;
-      imgUrl: string;
-      price: number;
-      isFreeDelivery: boolean;
-    }
-  | any;
-
-type NavigationProps = NativeStackNavigationProp<HomeStackType>;
-
-const CartCard = ({ product }: CartProps) => {
-  const navigation = useNavigation<NavigationProps>();
+const CartCard = ({ productData, qnty }: CartItemProps) => {
+  const navigation = useNavigation<HomeStackNavigationProps>();
   const { removeFromCart } = useFirestore();
   const user = firebase.auth().currentUser;
 
@@ -39,18 +31,15 @@ const CartCard = ({ product }: CartProps) => {
           style={styles.topContainer}
           onPress={() =>
             navigation.navigate('ProductDetails', {
-              productID: product.productData.productID,
+              productID: productData.productID,
             })
           }>
-          <Image
-            source={{ uri: product.productData.imgUrl }}
-            style={styles.img}
-          />
+          <Image source={{ uri: productData.imgUrl }} style={styles.img} />
           <View style={styles.rightContainer}>
             <Text numberOfLines={2} style={styles.title}>
-              {product.productData.title}
+              {productData.title}
             </Text>
-            <Text style={styles.price}>₹{product.productData.price}</Text>
+            <Text style={styles.price}>₹{productData.price}</Text>
             <Text style={styles.freeShipping}>Eligible for Free Shipping</Text>
           </View>
         </Pressable>
@@ -58,15 +47,15 @@ const CartCard = ({ product }: CartProps) => {
           <Pressable
             onPress={() =>
               removeFromCart({
-                productID: product.productData.productID,
-                userID: user?.uid,
+                productID: productData.productID,
+                userID: user.uid,
               })
             }
             style={styles.deleteIcon}>
             <Icon name="trash" size={20} color="red" />
           </Pressable>
           {/* <View style={styles.productQuantity}>
-            <Text>{product.qnty}</Text>
+            <Text>{qnty}</Text>
           </View>
           <Pressable style={styles.plusIcon}>
             <Icon name="plus" size={20} />

@@ -1,20 +1,21 @@
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import colors from '../constants/colors';
+import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
-Icon.loadFont();
+// Icon.loadFont();
 
-const ProductCard = ({item}: any) => {
-  const navigation = useNavigation();
+const ProductCard = ({ item }: any) => {
+  const navigation = useNavigation<HomeStackNavigationProps>();
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
-        navigation.navigate('ProductDetails', {productID: item.productID})
+        navigation.navigate('ProductDetails', { productID: item.productID })
       }>
-      <Image style={styles.productImg} source={{uri: item.imgUrl}} />
+      <Image style={styles.productImg} source={{ uri: item.imgUrl }} />
       <View style={styles.rightContainer}>
         <Text numberOfLines={3} style={styles.title}>
           {item.title}
