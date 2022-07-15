@@ -100,6 +100,7 @@ const useFirestore = () => {
         console.log('User Created Successfully');
       });
   };
+
   /**
    * Add product to cart
    * @param param0

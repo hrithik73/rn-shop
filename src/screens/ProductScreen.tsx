@@ -9,6 +9,10 @@ import { HomeStackType } from '../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'Product'>;
 
+const generateKey = (pre: string) => {
+  return `${pre}_${new Date().getTime()}`;
+};
+
 const ProductScreen = () => {
   const route = useRoute<ProductScreenRouteProp>();
 
@@ -25,14 +29,16 @@ const ProductScreen = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(products);
   return (
     <View>
-      <Heading>{route.params.catID}</Heading>
+      <Heading>{route.params.catName}</Heading>
       <FlatList
         data={products}
         style={styles.input}
-        keyExtractor={item => item.productID}
+        keyExtractor={(item, index) => {
+          // generateKey(item.productID);
+          return item.productID;
+        }}
         renderItem={({ item }) => {
           return <ProductCard item={item} />;
         }}

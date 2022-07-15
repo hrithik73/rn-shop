@@ -22,6 +22,7 @@ const CategoriesItem = ({ item }: any) => {
       onPress={() =>
         navigation.navigate('Product', {
           catID: item.catID,
+          catName: item.catName,
         })
       }>
       <Image source={{ uri: item.imgUrl }} style={styles.img} />

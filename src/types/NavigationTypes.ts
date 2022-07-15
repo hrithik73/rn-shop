@@ -1,3 +1,4 @@
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type RootStackType = {
@@ -13,7 +14,7 @@ export type CartStackType = {
 
 export type HomeStackType = {
   HomeScreen: undefined;
-  Product: { catID: string };
+  Product: { catID: string; catName: string };
   ProductDetails: { productID: string };
   CartScreen: undefined;
 };
@@ -26,3 +27,5 @@ export type AuthStackType = {
 export type HomeStackNavigationProps = NativeStackNavigationProp<HomeStackType>;
 
 export type AuthStackNavigatorProps = NativeStackNavigationProp<AuthStackType>;
+
+export type RootStackNavigatorProps = BottomTabNavigationProp<RootStackType>;

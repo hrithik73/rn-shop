@@ -5,8 +5,6 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import colors from '../constants/colors';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
-// Icon.loadFont();
-
 const ProductCard = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
   return (

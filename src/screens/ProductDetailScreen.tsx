@@ -1,6 +1,6 @@
 import { firebase } from '@react-native-firebase/auth';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ import { ProductType } from '../types';
 import {
   HomeStackType,
   HomeStackNavigationProps,
+  RootStackNavigatorProps,
 } from '../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
@@ -23,19 +24,19 @@ type ProductDetailScreenProps = {
   // onIncrement: () => void;
 };
 
-const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
+const ProductDetailScreen = ({
   qnty,
   addToCartRedux,
-}) => {
+}: ProductDetailScreenProps) => {
   const route = useRoute<ProductScreenRouteProp>();
-  const navigation = useNavigation<HomeStackNavigationProps>();
+  const navigation = useNavigation<RootStackNavigatorProps>();
 
   const { getProductByProductId, addToCart } = useFirestore();
 
   const [product, setProduct] = useState<ProductType>({
     catID: '',
     deliveryDate: '',
-    imgUrl: '',
+    imgUrl: 'https://picsum.com/400/200',
     isFreeDelivery: false,
     oldPrice: '',
     price: '',

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TextStyle, View } from 'react-native';
 
 interface HeadingProp {
@@ -6,7 +6,7 @@ interface HeadingProp {
   customStyles?: TextStyle;
 }
 
-const Heading: FC<HeadingProp> = ({ children, customStyles }) => {
+const Heading = ({ children, customStyles }: HeadingProp) => {
   return <Text style={[styles.heading, customStyles]}>{children}</Text>;
 };
 const styles = StyleSheet.create({
