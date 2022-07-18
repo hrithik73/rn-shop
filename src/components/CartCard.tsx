@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import colors from '../constants/colors';
 
 import useFirestore from '../hooks/useFirestore';
 import { useAppSelector } from '../redux/store';
@@ -41,7 +42,7 @@ const CartCard = ({ productData, qnty }: CartItemProps) => {
               })
             }
             style={styles.deleteIcon}>
-            <Icon name="trash" size={20} color="red" />
+            <Icon name="trash" size={20} color={colors.red} />
           </Pressable>
           {/* <View style={styles.productQuantity}>
             <Text>{qnty}</Text>

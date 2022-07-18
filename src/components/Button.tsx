@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, ViewStyle} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 import colors from '../constants/colors';
 
 type ButtonProps = {
@@ -8,7 +8,7 @@ type ButtonProps = {
   customStyle?: ViewStyle;
 };
 
-const AppButton = ({text, onPress, customStyle}: ButtonProps) => {
+const AppButton = ({ text, onPress, customStyle }: ButtonProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.button, customStyle]}>
       <Text style={styles.buttonText}>{text}</Text>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 14,
     fontWeight: 'bold',
   },
