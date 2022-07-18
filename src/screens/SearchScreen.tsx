@@ -7,24 +7,25 @@ import { HomeStackType } from '../types/NavigationTypes';
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'Search'>;
 
 const SearchScreen = () => {
+  // Todo :- Make a better search screen logic
   const route = useRoute<ProductScreenRouteProp>();
   const { searchedProduct } = route.params;
+  console.log(searchedProduct);
+
   return (
     <View>
-      {/* <FlatList
+      <FlatList
         data={searchedProduct}
-        // style={styles.input}
         style={{
           padding: 15,
         }}
         keyExtractor={(item, index) => {
-          // generateKey(item.productID);
           return item.productID;
         }}
         renderItem={({ item }) => {
           return <ProductCard item={item} />;
         }}
-      /> */}
+      />
     </View>
   );
 };

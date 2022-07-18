@@ -25,7 +25,7 @@ const Header = () => {
   };
 
   const submitHandler = () => {
-    // searchInDB(searchTerm);
+    searchInDB(searchTerm);
     // console.log(se)
     navigation.navigate('Search', {
       searchedProduct: searchedProducts,
