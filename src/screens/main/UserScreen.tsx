@@ -5,13 +5,15 @@ import auth from '@react-native-firebase/auth';
 import remoteConfig from '@react-native-firebase/remote-config';
 
 const UserScreen = () => {
-  const [haveOffer, setHaveOffer] = useState(false);
+  const [haveOffer, setHaveOffer] = useState(true);
 
-  useEffect(() => {
-    // Firebase remote config
+  const getRemoteValue = async () => {
+    await remoteConfig().setConfigSettings({
+      minimumFetchIntervalMillis: 0,
+    });
     remoteConfig()
       .setDefaults({
-        haveOffer: false,
+        haveOffer: true,
       })
       .then(() => {
         console.log('Default Value Set Successfully');
@@ -20,6 +22,10 @@ const UserScreen = () => {
     const haveOfferRef = remoteConfig().getValue('haveOffer');
     console.log(haveOfferRef.asBoolean());
     setHaveOffer(haveOfferRef.asBoolean());
+  };
+
+  useEffect(() => {
+    getRemoteValue();
   }, []);
 
   return (

@@ -45,6 +45,7 @@ const useFirestore = () => {
    */
   const getProductByCatID = async (catId: string, lim: number = 10) => {
     let productsBycatID: ProductType[] = [];
+
     await firestore()
       .collection('products')
       .where('catID', '==', catId)
@@ -84,6 +85,23 @@ const useFirestore = () => {
         });
       });
     return product;
+  };
+
+  const getProductByName = async (name: string) => {
+    let productsByName: ProductType[] = [];
+
+    await firestore()
+      .collection('products')
+      .orderBy('title')
+      .startAt(name)
+      .endAt(name + '\uf8ff')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          productsByName.push(doc.data() as ProductType);
+        });
+      });
+    return productsByName;
   };
 
   // Add user to DB after successfully signUP
@@ -160,6 +178,7 @@ const useFirestore = () => {
     addToCart,
     getCartData,
     removeFromCart,
+    getProductByName,
   };
 };
 

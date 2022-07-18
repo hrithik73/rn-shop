@@ -9,14 +9,17 @@ import { HomeStackType } from '../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'Product'>;
 
-const generateKey = (pre: string) => {
-  return `${pre}_${new Date().getTime()}`;
-};
+// const generateKey = (pre: string) => {
+//   return `${pre}_${new Date().getTime()}`;
+// };
 
 const ProductScreen = () => {
   const route = useRoute<ProductScreenRouteProp>();
 
   const [products, setProducts] = useState<ProductType[]>([]);
+
+  // console.log('Prouctsss=========>', products);
+
   const { getProductByCatID } = useFirestore();
 
   const getData = async () => {

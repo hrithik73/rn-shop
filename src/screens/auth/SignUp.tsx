@@ -10,12 +10,15 @@ import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
 import globalStyles from '../../constants/globalStyles';
 import useFirestore from '../../hooks/useFirestore';
+import { USER_LOGGED_IN } from '../../redux/constants';
+import { useAppDispatch } from '../../redux/store';
 
 type HomeStackNavigationProps = NativeStackNavigationProp<any>;
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
   const { addUserToDB } = useFirestore();
+  const dispatch = useAppDispatch();
 
   const iconPressHandler = () => {
     setShowPass(!showPass);
@@ -36,6 +39,8 @@ const SignUp = () => {
           name: data.name,
           email: data.email,
         });
+        // Set User in Redux
+        dispatch({ type: USER_LOGGED_IN, payload: userRef.user.uid });
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -44,7 +49,6 @@ const SignUp = () => {
             message: 'That email address is already in use!',
           });
         }
-
         if (error.code === 'auth/invalid-email') {
           setError('email', {
             type: 'custom',

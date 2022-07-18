@@ -10,6 +10,7 @@ import HomeScreen from '../screens/main/HomeScreen';
 import UserScreen from '../screens/main/UserScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import ProductScreen from '../screens/ProductScreen';
+import SearchScreen from '../screens/SearchScreen';
 import {
   CartStackType,
   HomeStackType,
@@ -29,6 +30,7 @@ const HomeNavigator = () => {
       <Home.Screen name="HomeScreen" component={HomeScreen} />
       <Home.Screen name="Product" component={ProductScreen} />
       <Home.Screen name="ProductDetails" component={ProductDetailScreen} />
+      <Home.Screen name="Search" component={SearchScreen} />
     </Home.Navigator>
   );
 };
@@ -63,6 +65,7 @@ const MainNavigator = () => {
         name="Cart"
         component={CartNavigator}
         options={{
+          headerShown: false,
           tabBarIcon: () => <Icon name="shopping-cart" size={TAB_ICON_SIZE} />,
         }}
       />

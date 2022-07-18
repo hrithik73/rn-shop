@@ -9,6 +9,7 @@ import AppButton from '../components/Button';
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
 import { addToCart } from '../redux/actions';
+import { useAppSelector } from '../redux/store';
 import { ProductType } from '../types';
 import {
   HomeStackType,
@@ -45,7 +46,7 @@ const ProductDetailScreen = ({
     title: '',
   });
 
-  const user = firebase.auth().currentUser;
+  const user = useAppSelector(state => state.user);
 
   /**
    * Function to run on the time of component mounting and will get the product data
@@ -60,7 +61,7 @@ const ProductDetailScreen = ({
    *  This function will add the product to cart in Firestore
    */
   const addToCartHandler = () => {
-    addToCart({ product: product, userId: user?.uid });
+    addToCart({ product: product, userId: user.userId });
     navigation.navigate('Cart');
   };
 

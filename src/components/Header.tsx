@@ -1,11 +1,36 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Feather';
 import colors from '../constants/colors';
+import useFirestore from '../hooks/useFirestore';
+import { ProductType } from '../types';
+import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
 const Header = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const navigation = useNavigation<HomeStackNavigationProps>();
+
+  const { getProductByName } = useFirestore();
+
+  const searchInDB = async (newText: string) => {
+    const temp = await getProductByName(newText);
+    setSearchedProducts(temp);
+  };
+
+  const handleChange = (newText: React.SetStateAction<string>) => {
+    setSearchTerm(newText);
+  };
+
+  const submitHandler = () => {
+    // searchInDB(searchTerm);
+    // console.log(se)
+    navigation.navigate('Search', {
+      searchedProduct: searchedProducts,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -13,10 +38,13 @@ const Header = () => {
         placeholder="Search amazon.in"
         style={styles.input}
         autoCapitalize="none"
+        value={searchTerm}
+        onChangeText={handleChange}
+        // onFocus={() => navigation.navigate('Search')}
       />
-      <View style={styles.iconContainer}>
+      <Pressable style={styles.iconContainer} onPress={submitHandler}>
         <Icon name="search" size={30} />
-      </View>
+      </Pressable>
     </SafeAreaView>
   );
 };

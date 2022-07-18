@@ -3,16 +3,20 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { useAppDispatch } from '../../redux/store';
 
 import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
 import globalStyles from '../../constants/globalStyles';
+import { USER_LOGGED_IN } from '../../redux/constants';
 import { AuthStackNavigatorProps } from '../../types/NavigationTypes';
 
 const Login = () => {
-  //Todo:- Writing a better logic
+  //Todo:- Writing a better logic for this
   const [showPass, setShowPass] = useState(false);
+
+  const dispatch = useAppDispatch();
 
   const iconPressHandler = () => {
     setShowPass(!showPass);
@@ -25,10 +29,13 @@ const Login = () => {
   const navigator = useNavigation<AuthStackNavigatorProps>();
 
   const submitHandler = (data: any) => {
-    console.log(data);
+    // console.log(data);
     auth()
       .signInWithEmailAndPassword(data.email, data.pass)
-      .then(() => console.log('User Logged-In Successfully'))
+      .then(({ user }) => {
+        console.log('User Logged-In Successfully');
+        dispatch({ type: USER_LOGGED_IN, payload: user.uid });
+      })
       .catch(error => {
         if (error.code === 'auth/invalid-email') {
           setError('email', {

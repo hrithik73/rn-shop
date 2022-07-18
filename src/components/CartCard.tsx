@@ -1,28 +1,17 @@
-import { firebase } from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {
-  Animated,
-  Button,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+
 import useFirestore from '../hooks/useFirestore';
+import { useAppSelector } from '../redux/store';
 import { CartItemProps } from '../types';
-import {
-  HomeStackType,
-  HomeStackNavigationProps,
-} from '../types/NavigationTypes';
+import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
 const CartCard = ({ productData, qnty }: CartItemProps) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
   const { removeFromCart } = useFirestore();
-  const user = firebase.auth().currentUser;
+  const user = useAppSelector(state => state.user);
 
   return (
     <>
@@ -48,7 +37,7 @@ const CartCard = ({ productData, qnty }: CartItemProps) => {
             onPress={() =>
               removeFromCart({
                 productID: productData.productID,
-                userID: user.uid,
+                userID: user.userId,
               })
             }
             style={styles.deleteIcon}>
