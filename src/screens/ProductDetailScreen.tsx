@@ -1,4 +1,3 @@
-import { firebase } from '@react-native-firebase/auth';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -13,7 +12,6 @@ import { useAppSelector } from '../redux/store';
 import { ProductType } from '../types';
 import {
   HomeStackType,
-  HomeStackNavigationProps,
   RootStackNavigatorProps,
 } from '../types/NavigationTypes';
 
@@ -22,7 +20,6 @@ type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 type ProductDetailScreenProps = {
   qnty: number;
   addToCartRedux: (arg0: any) => void;
-  // onIncrement: () => void;
 };
 
 const ProductDetailScreen = ({
@@ -62,7 +59,7 @@ const ProductDetailScreen = ({
    */
   const addToCartHandler = () => {
     addToCart({ product: product, userId: user.userId });
-    navigation.navigate('Cart');
+    navigation.navigate('Cart', { screen: 'CartScreen' });
   };
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+
 import Header from '../components/Header';
 import { TAB_ICON_SIZE } from '../constants/AppConstants';
 import colors from '../constants/colors';
@@ -50,14 +51,12 @@ const CartNavigator = () => {
 
 const MainNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        header: () => <Header />,
-      }}>
+    <Tab.Navigator screenOptions={{}}>
       <Tab.Screen
         name="Home"
         component={HomeNavigator}
         options={{
+          header: () => <Header />,
           tabBarIcon: () => <Icon name="home" size={TAB_ICON_SIZE} />,
         }}
       />
@@ -65,7 +64,7 @@ const MainNavigator = () => {
         name="Cart"
         component={CartNavigator}
         options={{
-          headerShown: false,
+          // headerShown: false,
           tabBarIcon: () => <Icon name="shopping-cart" size={TAB_ICON_SIZE} />,
         }}
       />

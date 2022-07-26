@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import React, { useEffect } from 'react';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import { PersistGate } from 'redux-persist/integration/react';
+import Icon from 'react-native-vector-icons/Feather';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import AppNavigator from './src/navigators';
-import { store, persistor } from './src/redux/store';
+import { persistor, store } from './src/redux/store';
 
 const App = () => {
+  // Load the Assests
   useEffect(() => {
     Icon.loadFont();
     AntIcon.loadFont();

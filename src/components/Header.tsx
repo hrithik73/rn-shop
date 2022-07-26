@@ -1,12 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Feather';
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
 import { ProductType } from '../types';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
+
+// Todo:- Implement Search Functionality better
 
 const Header = () => {
   const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
@@ -26,7 +28,6 @@ const Header = () => {
 
   const submitHandler = () => {
     searchInDB(searchTerm);
-    // console.log(se)
     navigation.navigate('Search', {
       searchedProduct: searchedProducts,
     });

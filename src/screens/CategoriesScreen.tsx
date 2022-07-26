@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Heading from '../components/Heading';
 
+import Heading from '../components/Heading';
 import useFirestore from '../hooks/useFirestore';
 import { ProductType } from '../types';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';

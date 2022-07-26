@@ -1,7 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { persistStore } from 'redux-persist';
-
 import * as thunkMiddleware from 'redux-thunk';
 
 import reducers from '../reducers';

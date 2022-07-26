@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+
 import colors from '../constants/colors';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
 

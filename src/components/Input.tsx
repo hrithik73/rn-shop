@@ -1,7 +1,14 @@
 import React from 'react';
-import {Controller, FieldValues} from 'react-hook-form';
-import {TextInput, TextInputProps, StyleSheet, View, Text} from 'react-native';
+import { Controller, FieldValues } from 'react-hook-form';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+
 import colors from '../constants/colors';
 
 type AppTextInputProps = {
@@ -18,7 +25,7 @@ type EyeIconType = {
   onIconPress: any;
 };
 
-const EyeIcon = ({showPass, onIconPress}: EyeIconType) => {
+const EyeIcon = ({ showPass, onIconPress }: EyeIconType) => {
   return showPass ? (
     <Icon
       name="eye"
@@ -47,7 +54,10 @@ const AppTextInput = ({
 }: AppTextInputProps) => {
   return (
     <Controller
-      render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
+      render={({
+        field: { onChange, onBlur, value },
+        fieldState: { error },
+      }) => (
         <View style={styles.inputContainer}>
           <TextInput
             autoCapitalize="none"

@@ -1,27 +1,26 @@
 import auth from '@react-native-firebase/auth';
-import { NavigationContainer } from '@react-navigation/native';
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { RootStackType } from '../types/NavigationTypes';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 
-const config = {
-  screens: {
-    Home: {
-      screens: {
-        ProductDetails: {
-          path: 'product/:productID',
+const linking: LinkingOptions<RootStackType> = {
+  prefixes: ['rnshop://'],
+  config: {
+    screens: {
+      Home: {
+        screens: {
+          ProductDetails: {
+            path: 'product/:productID',
+          },
         },
       },
     },
-    User: 'user',
   },
-};
-const linking = {
-  prefixes: ['rnshop://'],
-  config,
 };
 
 const AppNavigator = () => {
@@ -40,7 +39,6 @@ const AppNavigator = () => {
   }, []);
 
   if (initializing) {
-    //Todo:- Add Lottie View here
     return (
       <LottieView source={require('../assets/loading.json')} autoPlay loop />
     );

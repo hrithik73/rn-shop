@@ -1,6 +1,7 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, View } from 'react-native';
+
 import ProductCard from '../components/ProductCard';
 import { HomeStackType } from '../types/NavigationTypes';
 

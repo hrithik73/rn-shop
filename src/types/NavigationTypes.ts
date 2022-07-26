@@ -1,16 +1,20 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import {
+  CompositeNavigationProp,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ProductType } from '.';
 
 export type RootStackType = {
-  Home: HomeStackType;
-  Cart: CartStackType;
+  Home: NavigatorScreenParams<HomeStackType>;
+  Cart: NavigatorScreenParams<CartStackType>;
   User: undefined;
 };
 
 export type CartStackType = {
   CartScreen: undefined;
-  ProductDetails: {};
+  ProductDetails: undefined;
 };
 
 export type HomeStackType = {
