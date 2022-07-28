@@ -6,13 +6,23 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import AppNavigator from './src/navigators';
 import { persistor, store } from './src/redux/store';
+import usePushNotification from './src/hooks/usePushNotification';
 
 const App = () => {
-  // Load the Assests
+  // Load the Assets
   useEffect(() => {
     Icon.loadFont();
     AntIcon.loadFont();
   });
+
+  usePushNotification();
+
+  // useEffect(() => {
+  //   messaging()
+  //     .getToken(firebase.app().options?.messagingSenderId)
+  //     .then(x => console.log('Token--------->', x))
+  //     .catch(e => console.log(e));
+  // }, []);
 
   return (
     <Provider store={store}>

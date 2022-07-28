@@ -131,6 +131,7 @@ const mapStateToProps = (state: any) => ({
   qnty: state.cart.qnty,
 });
 
+// Using old redux just for learning purpose
 const mapDispatchToProps = (dispatch: any) => ({
   addToCartRedux: (product: any) => dispatch(addToCart(product)),
   // onDecrement: () => dispatch(removeFromCart()),

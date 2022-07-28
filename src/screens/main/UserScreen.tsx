@@ -1,8 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import auth from '@react-native-firebase/auth';
 import remoteConfig from '@react-native-firebase/remote-config';
+import AppButton from '../../components/Button';
+import crashlytics from '@react-native-firebase/crashlytics';
+
+import messaging from '@react-native-firebase/messaging';
+
+const requestUserPermission = async () => {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    console.log('Authorization status:', authStatus);
+  }
+};
 
 const UserScreen = () => {
   const [haveOffer, setHaveOffer] = useState(false);
@@ -10,7 +32,7 @@ const UserScreen = () => {
   const fetchRemoteData = async () => {
     try {
       await remoteConfig().setDefaults({ haveOffer: false }); // setting default value
-      await remoteConfig().fetch(10); // 10 seconds cache
+      await remoteConfig().fetch(10); // 10 seconds cache for testing purpose only
       const activated = await remoteConfig().fetchAndActivate(); //can read remote data if true
       if (activated) {
         const value = await remoteConfig().getBoolean('haveOffer'); //returns all values set in remote
@@ -23,7 +45,13 @@ const UserScreen = () => {
   };
 
   useEffect(() => {
-    fetchRemoteData();
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log(remoteMessage.data);
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
+    // fetchRemoteData();
   }, []);
 
   return (

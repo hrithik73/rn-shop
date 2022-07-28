@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextStyle, View } from 'react-native';
+import colors from '../constants/colors';
 
 interface HeadingProp {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ const Heading = ({ children, customStyles }: HeadingProp) => {
 const styles = StyleSheet.create({
   heading: {
     fontWeight: 'bold',
+    color: colors.black,
     fontSize: 20,
     textAlign: 'center',
     marginVertical: 5,

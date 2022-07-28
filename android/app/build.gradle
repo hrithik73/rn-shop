@@ -82,6 +82,9 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply plugin: 'com.google.gms.google-services' // <- Add this line
+apply plugin: 'com.google.firebase.crashlytics'
 
 /**
  * Set this to true to create two separate APKs instead of one:

@@ -1,10 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import {
-  CompositeNavigationProp,
-  NavigatorScreenParams,
-} from '@react-navigation/native';
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ProductType } from '.';
+import { ProductType } from './index';
 
 export type RootStackType = {
   Home: NavigatorScreenParams<HomeStackType>;

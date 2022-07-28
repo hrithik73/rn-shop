@@ -76,6 +76,3 @@ const styles = StyleSheet.create({
   },
 });
 export default CategoriesScreen;
-function query(arg0: any, arg1: any, arg2: any) {
-  throw new Error('Function not implemented.');
-}

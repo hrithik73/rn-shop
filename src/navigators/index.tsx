@@ -1,9 +1,9 @@
 import auth from '@react-native-firebase/auth';
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
+
 import { RootStackType } from '../types/NavigationTypes';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';

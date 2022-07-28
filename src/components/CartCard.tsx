@@ -42,7 +42,12 @@ const CartCard = ({ productData, qnty }: CartItemProps) => {
               })
             }
             style={styles.deleteIcon}>
-            <Icon name="trash" size={20} color={colors.red} />
+            <Icon
+              name="trash"
+              size={20}
+              color={colors.red}
+              style={{ borderColor: 'black' }}
+            />
           </Pressable>
           {/* <View style={styles.productQuantity}>
             <Text>{qnty}</Text>
@@ -106,6 +111,7 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    color: 'black',
   },
   rightContainer: {
     flexShrink: 1,

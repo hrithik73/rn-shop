@@ -5,7 +5,7 @@ import { CartItemProps, ProductType } from '../types';
  * All the types are defined here
  */
 
-type AddUserToDBTypes = {
+type AddUserToDBProps = {
   userID: string;
   name: string;
   email: string;
@@ -21,11 +21,12 @@ type RemoveFromCart = {
   productID: string;
 };
 
-/********** All the functions are defined here to perform any kind of action in Firebase **************/
+/********** All the functions are defined here to perform any kind of action in Firebase FireStore **********/
 
 const useFirestore = () => {
   /**
    * A function to get the collection from firestore
+   * @param {string} collectName collection name to get all data from
    */
   const getCollection = async (collectName: string) => {
     let collectionData: ProductType[] = [];
@@ -42,6 +43,8 @@ const useFirestore = () => {
 
   /**
    * Get Products by CatID
+   * @param {string} catId
+   * @param {number} lim limit to get data
    */
   const getProductByCatID = async (catId: string, lim: number = 10) => {
     let productsBycatID: ProductType[] = [];
@@ -61,7 +64,7 @@ const useFirestore = () => {
 
   /**
    * Get Product by productID
-   * @param productID
+   * @param {string }productID
    */
   const getProductByProductId = async (productID: string) => {
     let product: ProductType = {
@@ -105,7 +108,7 @@ const useFirestore = () => {
   };
 
   // Add user to DB after successfully signUP
-  const addUserToDB = async ({ userID, name, email }: AddUserToDBTypes) => {
+  const addUserToDB = async ({ userID, name, email }: AddUserToDBProps) => {
     await firestore()
       .collection('users')
       .doc(userID)
@@ -121,7 +124,8 @@ const useFirestore = () => {
 
   /**
    * Add product to cart
-   * @param param0
+   * @param {string}  userId of the user for adding the product in user's db
+   * @param {productType} product to add
    */
 
   const addToCart = async ({ userId, product }: AddToCartProps) => {
@@ -140,7 +144,7 @@ const useFirestore = () => {
   };
   /**
    * Function to get the Cart data
-   * @param userID userID to identify the data
+   * @param {string} userID userID to identify the data
    * @returns returns an Array of products
    */
   const getCartData = async (userID?: string) => {
@@ -157,6 +161,12 @@ const useFirestore = () => {
       });
     return cartData;
   };
+
+  /**
+   * Remove an Item from Cart
+   * @param {string} userID userID to remove data from from cart
+   * @param {string} productID Product Id of the product to remove
+   */
 
   const removeFromCart = async ({ userID, productID }: RemoveFromCart) => {
     await firestore()

@@ -51,12 +51,14 @@ const CartNavigator = () => {
 
 const MainNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{}}>
+    <Tab.Navigator
+      screenOptions={{
+        header: () => <Header />,
+      }}>
       <Tab.Screen
         name="Home"
         component={HomeNavigator}
         options={{
-          header: () => <Header />,
           tabBarIcon: () => <Icon name="home" size={TAB_ICON_SIZE} />,
         }}
       />
@@ -64,7 +66,6 @@ const MainNavigator = () => {
         name="Cart"
         component={CartNavigator}
         options={{
-          // headerShown: false,
           tabBarIcon: () => <Icon name="shopping-cart" size={TAB_ICON_SIZE} />,
         }}
       />
