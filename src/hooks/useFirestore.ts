@@ -45,8 +45,13 @@ const useFirestore = () => {
    * Get Products by CatID
    * @param {string} catId
    * @param {number} lim limit to get data
+   * @param {}
    */
-  const getProductByCatID = async (catId: string, lim: number = 10) => {
+  const getProductByCatID = async (
+    catId: string,
+    lim: number = 10,
+    onSuccess: (arg0: boolean) => void,
+  ) => {
     let productsBycatID: ProductType[] = [];
 
     await firestore()
@@ -55,6 +60,7 @@ const useFirestore = () => {
       .limit(lim)
       .get()
       .then(querySnapshot => {
+        onSuccess(false);
         querySnapshot.forEach(doc => {
           productsBycatID.push(doc.data() as ProductType);
         });
