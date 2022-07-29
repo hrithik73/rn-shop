@@ -12,45 +12,57 @@ type ProductScreenRouteProp = RouteProp<HomeStackType, 'Product'>;
 
 const ProductScreen = () => {
   const route = useRoute<ProductScreenRouteProp>();
+  const [limit, setLimit] = useState(10);
 
   const [products, setProducts] = useState<ProductType[]>([]);
 
-  // console.log('Prouctsss=========>', products);
-
   const { getProductByCatID } = useFirestore();
 
-  const getData = async () => {
+  const getData = async (lim: number) => {
     const productsData: ProductType[] = await getProductByCatID(
       route.params.catID,
+      lim,
     );
     setProducts(productsData);
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData(limit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [limit]);
+
+  const updateLimit = () => {
+    if (products.length === limit) {
+      setLimit(limit + 10);
+    }
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <Heading>{route.params.catName}</Heading>
       <FlatList
         data={products}
         style={styles.input}
-        keyExtractor={(item, index) => {
+        keyExtractor={({ productID }) => {
           // generateKey(item.productID);
-          return item.productID;
+          return productID;
         }}
         renderItem={({ item }) => {
           return <ProductCard item={item} />;
         }}
+        onEndReachedThreshold={0.2}
+        onEndReached={updateLimit}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   input: {
-    padding: 15,
+    paddingHorizontal: 15,
   },
 });
 

@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import AppButton from '../components/Button';
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
-import { addToCartAsync } from '../redux/actions';
+// import { addToCartAsync } from '../redux/actions';
 import { useAppSelector } from '../redux/store';
 import { ProductType } from '../types';
 import {
@@ -17,8 +17,8 @@ import {
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 
 type ProductDetailScreenProps = {
-  qnty: number;
-  addToCartRedux: (arg0: any) => void;
+  // qnty: number;
+  // addToCartRedux: (arg0: any) => void;
 };
 
 const ProductDetailScreen = ({}: ProductDetailScreenProps) => {
@@ -55,12 +55,13 @@ const ProductDetailScreen = ({}: ProductDetailScreenProps) => {
    */
   const addToCartHandler = () => {
     addToCart({ product: product, userId: user.userId });
-    addToCartAsync({ product: product, userId: user.userId });
+    // addToCartAsync({ product: product, userId: user.userId });
     navigation.navigate('Cart', { screen: 'CartScreen' });
   };
 
   useEffect(() => {
     getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

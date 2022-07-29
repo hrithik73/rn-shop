@@ -36,7 +36,8 @@ const Header = () => {
   return (
     <SafeAreaView style={styles.container}>
       <TextInput
-        placeholder="Search amazon.in"
+        placeholder="search rnshop.com "
+        placeholderTextColor={colors.grey}
         style={styles.input}
         autoCapitalize="none"
         value={searchTerm}

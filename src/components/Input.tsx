@@ -58,10 +58,11 @@ const AppTextInput = ({
         field: { onChange, onBlur, value },
         fieldState: { error },
       }) => (
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, customStyles]}>
           <TextInput
             autoCapitalize="none"
-            onChangeText={value => onChange(value)}
+            onChangeText={val => onChange(val)}
+            placeholderTextColor={colors.black}
             onBlur={onBlur}
             style={styles.input}
             secureTextEntry={!showPass && isPass}
