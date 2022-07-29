@@ -2,12 +2,11 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { connect } from 'react-redux';
 
 import AppButton from '../components/Button';
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
-import { addToCart } from '../redux/actions';
+import { addToCartAsync } from '../redux/actions';
 import { useAppSelector } from '../redux/store';
 import { ProductType } from '../types';
 import {
@@ -22,10 +21,7 @@ type ProductDetailScreenProps = {
   addToCartRedux: (arg0: any) => void;
 };
 
-const ProductDetailScreen = ({
-  qnty,
-  addToCartRedux,
-}: ProductDetailScreenProps) => {
+const ProductDetailScreen = ({}: ProductDetailScreenProps) => {
   const route = useRoute<ProductScreenRouteProp>();
   const navigation = useNavigation<RootStackNavigatorProps>();
 
@@ -44,7 +40,7 @@ const ProductDetailScreen = ({
   });
 
   const user = useAppSelector(state => state.user);
-
+  // const dispatch = useAppDispatch();
   /**
    * Function to run on the time of component mounting and will get the product data
    **/
@@ -59,6 +55,7 @@ const ProductDetailScreen = ({
    */
   const addToCartHandler = () => {
     addToCart({ product: product, userId: user.userId });
+    addToCartAsync({ product: product, userId: user.userId });
     navigation.navigate('Cart', { screen: 'CartScreen' });
   };
 
@@ -127,17 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state: any) => ({
-  qnty: state.cart.qnty,
-});
-
-// Using old redux just for learning purpose
-const mapDispatchToProps = (dispatch: any) => ({
-  addToCartRedux: (product: any) => dispatch(addToCart(product)),
-  // onDecrement: () => dispatch(removeFromCart()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ProductDetailScreen);
+export default ProductDetailScreen;

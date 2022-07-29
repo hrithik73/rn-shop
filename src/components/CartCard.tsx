@@ -49,12 +49,12 @@ const CartCard = ({ productData, qnty }: CartItemProps) => {
               style={{ borderColor: 'black' }}
             />
           </Pressable>
-          {/* <View style={styles.productQuantity}>
+          <View style={styles.productQuantity}>
             <Text>{qnty}</Text>
           </View>
           <Pressable style={styles.plusIcon}>
             <Icon name="plus" size={20} />
-          </Pressable> */}
+          </Pressable>
         </View>
       </View>
     </>

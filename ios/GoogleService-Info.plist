@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>871607272353-f78gflk21l1st8i8l8qg01m2t4mo7avo.apps.googleusercontent.com</string>
+	<string>871607272353-v7t98mvk0ca4jpffvgfqs153134233pf.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.871607272353-f78gflk21l1st8i8l8qg01m2t4mo7avo</string>
+	<string>com.googleusercontent.apps.871607272353-v7t98mvk0ca4jpffvgfqs153134233pf</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCLRpRCC2HJy1FKLl_sZQw4Yj52BpBSv2g</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.rnshop</string>
+	<string>org.reactjs.native.example.RNshop</string>
 	<key>PROJECT_ID</key>
 	<string>rn-e-commerce-fe8d5</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:871607272353:ios:9ac8a9a664453c6b9841e0</string>
+	<string>1:871607272353:ios:86ece49c110bf9139841e0</string>
+	<key>DATABASE_URL</key>
+	<string>https://rn-e-commerce-fe8d5-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

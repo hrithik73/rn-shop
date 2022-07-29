@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Feather';
+
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
 import { ProductType } from '../types';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
 // Todo:- Implement Search Functionality better
-
 const Header = () => {
   const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 5,
     backgroundColor: 'white',
+    // color: 'black',
     height: 40,
     width: '80%',
     padding: 5,

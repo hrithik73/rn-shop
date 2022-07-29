@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextStyle, View } from 'react-native';
+import { StyleSheet, Text, TextStyle } from 'react-native';
 import colors from '../constants/colors';
 
 interface HeadingProp {

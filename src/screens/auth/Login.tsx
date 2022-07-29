@@ -1,5 +1,5 @@
 import auth from '@react-native-firebase/auth';
-import crashlytics from '@react-native-firebase/crashlytics';
+// import crashlytics from '@react-native-firebase/crashlytics';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -35,17 +35,17 @@ const Login = () => {
       .signInWithEmailAndPassword(data.email, data.pass)
       .then(async ({ user }) => {
         console.log('User Logged-In Successfully');
-
-        await Promise.all([
-          crashlytics().setUserId(user.uid),
-          crashlytics().setAttribute('credits', String(user.metadata)),
-          crashlytics().setAttributes({
-            role: 'admin',
-            followers: '13',
-            email: user.email,
-            username: user.displayName,
-          }),
-        ]);
+        // Crashlytics.setUserIdentifier(user.uid);
+        // await Promise.all([
+        //   crashlytics().setUserId(user.uid),
+        //   crashlytics().setAttribute('credits', String(user.metadata)),
+        //   crashlytics().setAttributes({
+        //     role: 'admin',
+        //     followers: '13',
+        //     email: user.email,
+        //     username: user.displayName,
+        //   }),
+        // ]);
         dispatch({ type: USER_LOGGED_IN, payload: user.uid });
       })
       .catch(error => {

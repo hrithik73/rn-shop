@@ -73,8 +73,9 @@ const usePushNotification = () => {
     if (Platform.OS === 'ios') {
       registerForRemoteMessages();
     } else {
-      // onMessage();
+      onMessage();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

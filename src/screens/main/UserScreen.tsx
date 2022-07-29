@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  Alert,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import auth from '@react-native-firebase/auth';
 import remoteConfig from '@react-native-firebase/remote-config';
 import AppButton from '../../components/Button';
+import PushNotification from 'react-native-push-notification';
 import crashlytics from '@react-native-firebase/crashlytics';
 
-import messaging from '@react-native-firebase/messaging';
-
-const requestUserPermission = async () => {
-  const authStatus = await messaging().requestPermission();
-  const enabled =
-    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-  if (enabled) {
-    console.log('Authorization status:', authStatus);
-  }
+const showNotification = () => {
+  PushNotification.localNotification({
+    channelId: 'testing-push-notification',
+    title: 'New Message',
+    message: 'You got a new message',
+  });
 };
 
 const UserScreen = () => {
@@ -45,23 +34,12 @@ const UserScreen = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage.data);
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-
-    return unsubscribe;
-    // fetchRemoteData();
+    fetchRemoteData();
   }, []);
 
   return (
     <SafeAreaView>
-      <View
-        style={{
-          justifyContent: 'flex-start',
-          alignItems: 'flex-end',
-          marginRight: 20,
-        }}>
+      <View style={styles.container}>
         <Icon
           name="log-out"
           size={30}
@@ -78,12 +56,26 @@ const UserScreen = () => {
           <Text>🛍 You have a Limited time special offer</Text>
         </View>
       )}
+      <AppButton
+        customStyle={{ margin: 100 }}
+        text="Get Push Notification"
+        onPress={() => showNotification()}
+      />
+      <AppButton
+        customStyle={{ margin: 100 }}
+        text="Crash"
+        onPress={() => crashlytics().crash()}
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    marginRight: 20,
+  },
   offerTxtContainer: {
     height: 20,
     marginTop: 100,
