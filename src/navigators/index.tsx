@@ -27,16 +27,17 @@ const AppNavigator = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
-  function onAuthStateChanged(user: any) {
-    setUser(user);
-    if (initializing) {
-      setInitializing(false);
-    }
-  }
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    function onAuthStateChanged(user: any) {
+      setUser(user);
+      if (initializing) {
+        setInitializing(false);
+      }
+    }
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
-  }, []);
+  }, [initializing]);
 
   if (initializing) {
     return (

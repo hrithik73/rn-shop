@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-import { useFocusEffect } from '@react-navigation/native';
+// import { useFocusEffect } from '@react-navigation/native';
 import CartCard from '../../components/CartCard';
 import useFirestore from '../../hooks/useFirestore';
 import { useAppSelector } from '../../redux/store';
@@ -21,24 +21,14 @@ const CartScreen = () => {
 
   const user = useAppSelector(state => state.user);
 
-  const getInitialCartData = async () => {
-    const initialCartData = await getCartData(user.userId);
-    setCartData(initialCartData);
-    setRefreshing(false);
-  };
-
   useEffect(() => {
+    const getInitialCartData = async () => {
+      const initialCartData = await getCartData(user.userId);
+      setCartData(initialCartData);
+      setRefreshing(false);
+    };
     getInitialCartData();
-  }, []);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      // Do something when the screen is focused
-      getInitialCartData();
-      return () => {};
-    }, []),
-  );
-  console.log(cartData);
+  }, [getCartData, user.userId]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,7 +42,7 @@ const CartScreen = () => {
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
-              onRefresh={getInitialCartData}
+              // onRefresh={getInitialCartData}
             />
           }
         />

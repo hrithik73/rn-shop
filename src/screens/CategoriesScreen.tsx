@@ -34,14 +34,13 @@ const CategoriesScreen = () => {
   const { getCollection } = useFirestore();
   const [categories, setCategories] = useState<ProductType[]>([]);
 
-  const getCategoriesFromFireStore = async () => {
-    const categoriesData = await getCollection('categories');
-    setCategories(categoriesData);
-  };
-
   useEffect(() => {
+    const getCategoriesFromFireStore = async () => {
+      const categoriesData = await getCollection('categories');
+      setCategories(categoriesData);
+    };
     getCategoriesFromFireStore();
-  }, []);
+  }, [getCollection]);
 
   return (
     <View style={styles.container}>
