@@ -1,4 +1,3 @@
-import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
@@ -9,15 +8,13 @@ import AppButton from '../../components/Button';
 import AppTextInput from '../../components/Input';
 import colors from '../../constants/colors';
 import globalStyles from '../../constants/globalStyles';
-import useFirestore from '../../hooks/useFirestore';
-import { USER_LOGGED_IN } from '../../redux/constants';
 import { useAppDispatch } from '../../redux/store';
+import { signUpuser } from '../../redux/thunk/userThunks';
 
 type HomeStackNavigationProps = NativeStackNavigationProp<any>;
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
-  const { addUserToDB } = useFirestore();
   const dispatch = useAppDispatch();
 
   const iconPressHandler = () => {
@@ -30,34 +27,14 @@ const SignUp = () => {
   const navigator = useNavigation<HomeStackNavigationProps>();
 
   const submitHandler = (data: any) => {
-    auth()
-      .createUserWithEmailAndPassword(data.email, data.pass)
-      .then(userRef => {
-        // Add user to DB
-        addUserToDB({
-          userID: userRef.user.uid,
-          name: data.name,
-          email: data.email,
-        });
-        // Set User in Redux
-        dispatch({ type: USER_LOGGED_IN, payload: userRef.user.uid });
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          setError('email', {
-            type: 'custom',
-            message: 'That email address is already in use!',
-          });
-        }
-        if (error.code === 'auth/invalid-email') {
-          setError('email', {
-            type: 'custom',
-            message: 'The Email is invalid',
-          });
-        }
-
-        console.error(error);
-      });
+    dispatch(
+      signUpuser({
+        name: data.name,
+        email: data.email,
+        pass: data.pass,
+        setError: setError,
+      }),
+    );
   };
   return (
     <SafeAreaView style={styles.container}>

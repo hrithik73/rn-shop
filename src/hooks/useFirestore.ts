@@ -37,7 +37,11 @@ const useFirestore = () => {
         querySnapshot.forEach(doc => {
           collectionData.push(doc.data() as ProductType);
         });
+      })
+      .catch(e => {
+        console.log(e);
       });
+
     return collectionData;
   };
 

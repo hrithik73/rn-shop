@@ -58,7 +58,9 @@ const CategoriesScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   categoriesItemContainer: {
     margin: 20,
   },
