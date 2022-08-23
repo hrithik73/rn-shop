@@ -2,16 +2,21 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import {
   FlatList,
-  Image,
+  // Image,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
 
 import Heading from '../components/Heading';
-import useFirestore from '../hooks/useFirestore';
-import { ProductType } from '../types';
+import useApi from '../hooks/useApi';
+import { CategoryType } from '../types';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
+
+import LinearGradient from 'react-native-linear-gradient';
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
+
+const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
 const CategoriesItem = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
@@ -21,26 +26,34 @@ const CategoriesItem = ({ item }: any) => {
       style={styles.categoriesItemContainer}
       onPress={() =>
         navigation.navigate('Product', {
-          catID: item.catID,
-          catName: item.catName,
+          catID: item.id,
+          catName: item.name,
         })
       }>
-      <Image source={{ uri: item.imgUrl }} style={styles.img} />
+      {/* <Image source={{ uri: item.image }} style={styles.img} /> */}
+      <ShimmerPlaceholder
+        LinearGradient={LinearGradient}
+        style={styles.shimmerContainer}
+      />
+      <Heading>{item.name}</Heading>
     </TouchableOpacity>
   );
 };
 
 const CategoriesScreen = () => {
-  const { getCollection } = useFirestore();
-  const [categories, setCategories] = useState<ProductType[]>([]);
+  const { getAllCategories } = useApi();
+  const [categories, setCategories] = useState<CategoryType[]>([]);
 
   useEffect(() => {
     const getCategoriesFromFireStore = async () => {
-      const categoriesData = await getCollection('categories');
+      const categoriesData = await getAllCategories();
       setCategories(categoriesData);
     };
     getCategoriesFromFireStore();
-  }, [getCollection]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log({ categories });
 
   return (
     <View style={styles.container}>
@@ -48,7 +61,7 @@ const CategoriesScreen = () => {
       <FlatList
         data={categories}
         numColumns={2}
-        keyExtractor={item => item.catID}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => {
           return <CategoriesItem item={item} />;
         }}
@@ -74,6 +87,12 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     borderRadius: 10,
+  },
+  shimmerContainer: {
+    height: 150,
+    width: 150,
+    borderRadius: 10,
+    // margin: 20,
   },
 });
 export default CategoriesScreen;

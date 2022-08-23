@@ -11,7 +11,7 @@ type AddUserToDBProps = {
   email: string;
 };
 
-type AddToCartProps = {
+type AddToCartInFireStoreProps = {
   userId: string | undefined;
   product: any;
 };
@@ -78,15 +78,16 @@ const useFirestore = () => {
    */
   const getProductByProductId = async (productID: string) => {
     let product: ProductType = {
-      catID: '',
-      deliveryDate: '',
-      imgUrl: '',
-      isFreeDelivery: false,
-      oldPrice: '',
-      price: '',
-      productID: '',
-      rating: 1,
+      id: 1,
       title: '',
+      price: 1,
+      description: '',
+      category: {
+        id: '',
+        name: '',
+        image: '',
+      },
+      images: [],
     };
     await firestore()
       .collection('products')
@@ -138,18 +139,26 @@ const useFirestore = () => {
    * @param {productType} product to add
    */
 
-  const addToCart = async ({ userId, product }: AddToCartProps) => {
+  const addToCartInFireStore = async ({
+    userId,
+    product,
+  }: AddToCartInFireStoreProps) => {
+    console.log('Calling firebase ------->', { userId }, { product });
+
     await firestore()
       .collection('users')
       .doc(userId)
       .collection('cart')
-      .doc(product.productID)
+      .doc(product.id)
       .set({
         productData: product,
         qnty: 1,
       })
-      .then(() => {
-        console.log('Product Added');
+      .then(e => {
+        console.log('Product Added', e);
+      })
+      .catch(e => {
+        console.log(e);
       });
   };
   /**
@@ -195,7 +204,7 @@ const useFirestore = () => {
     getProductByCatID,
     getProductByProductId,
     addUserToDB,
-    addToCart,
+    addToCartInFireStore,
     getCartData,
     removeFromCart,
     getProductByName,

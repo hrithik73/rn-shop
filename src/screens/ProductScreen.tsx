@@ -1,54 +1,51 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import Heading from '../components/Heading';
+import Loading from '../components/Loading';
 import ProductCard from '../components/ProductCard';
-import colors from '../constants/colors';
-import useFirestore from '../hooks/useFirestore';
-import { ProductType } from '../types';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import {
+  getInitialProducts,
+  updateProductsList,
+} from '../redux/thunk/productsThunk';
 import { HomeStackType } from '../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'Product'>;
 
+const PER_PAGE_PRODUCT_LIMIT = 10;
+
 const ProductScreen = () => {
+  const dispatch = useAppDispatch();
+  const { products, isFetching } = useAppSelector(state => state.products);
   const route = useRoute<ProductScreenRouteProp>();
-  const [loading, setLoading] = useState(false);
-  const [limit, setLimit] = useState(10);
-  console.log('================>', loading);
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const [offset, setOffSet] = useState(0);
 
-  const { getProductByCatID } = useFirestore();
-
-  const getData = async (lim: number) => {
-    const productsData: ProductType[] = await getProductByCatID(
-      route.params.catID,
-      lim,
-      (val: boolean) => {
-        setLoading(val);
-      },
+  const fetchMoreData = async () => {
+    dispatch(
+      updateProductsList({
+        catId: route.params.catID,
+        limit: PER_PAGE_PRODUCT_LIMIT,
+        offset: offset + 10,
+      }),
     );
-    setProducts(productsData);
+    setOffSet(offset + 10);
   };
 
   useEffect(() => {
-    setLoading(true);
-    getData(limit);
+    dispatch(
+      getInitialProducts({
+        limit: PER_PAGE_PRODUCT_LIMIT,
+        catId: route.params.catID,
+      }),
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [limit]);
+  }, [route.params.catID]);
 
-  const updateLimit = () => {
-    if (products.length === limit) {
-      setLimit(limit + 10);
-    }
-  };
-  const Footer = () => {
-    return loading ? (
-      <View style={styles.loader}>
-        <ActivityIndicator color={colors.primary} size="large" />
-      </View>
-    ) : null;
-  };
+  if (isFetching && offset === 0) {
+    return <Loading />;
+  }
 
   return (
     <View style={styles.container}>
@@ -56,17 +53,19 @@ const ProductScreen = () => {
       <FlatList
         data={products}
         style={styles.input}
-        keyExtractor={({ productID }) => {
-          // generateKey(item.productID);
-          return productID;
+        keyExtractor={({ id }) => {
+          return id;
         }}
         renderItem={({ item }) => {
           return <ProductCard item={item} />;
         }}
-        onEndReachedThreshold={0.2}
-        onEndReached={updateLimit}
-        ListFooterComponent={Footer}
+        onEndReached={fetchMoreData}
       />
+      {isFetching && (
+        <View style={styles.loader}>
+          <Loading />
+        </View>
+      )}
     </View>
   );
 };

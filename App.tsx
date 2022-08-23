@@ -3,6 +3,8 @@ import { StatusBar } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/Feather';
 import { Provider } from 'react-redux';
+import { Provider as PaperProvider } from 'react-native-paper';
+
 import { PersistGate } from 'redux-persist/integration/react';
 
 import usePushNotification from './src/hooks/usePushNotification';
@@ -22,7 +24,9 @@ const App = () => {
     <Provider store={store}>
       <StatusBar barStyle="dark-content" />
       <PersistGate loading={null} persistor={persistor}>
-        <AppNavigator />
+        <PaperProvider>
+          <AppNavigator />
+        </PaperProvider>
       </PersistGate>
     </Provider>
   );

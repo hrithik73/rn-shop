@@ -1,8 +1,13 @@
-import { USER_LOGGED_IN, USER_SIGNED_OUT } from '../constants';
+import { UserInitStateType } from '../../types';
+import { USER_LOGGED_IN, USER_SIGNED_OUT, ADD_TO_CART } from '../constants';
 
-const initialState = {
+const initialState: UserInitStateType = {
   isLoggedIn: false,
-  userId: '',
+  personalDetails: {
+    email: '',
+    userId: '',
+  },
+  cart: [],
 };
 
 export default (state = initialState, action: any) => {
@@ -11,12 +16,23 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         isLoggedIn: true,
-        userId: action.payload,
+        personalDetails: {
+          userId: action.payload.userId,
+          email: action.payload.email,
+        },
       };
+
     case USER_SIGNED_OUT:
       return {
         ...state,
       };
+
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cart: [...state.cart, { ...action.payload }],
+      };
+
     default: {
       return state;
     }

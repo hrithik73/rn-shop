@@ -1,14 +1,12 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import AppButton from '../components/Button';
 import colors from '../constants/colors';
-import useFirestore from '../hooks/useFirestore';
-// import { addToCartAsync } from '../redux/actions';
-import { useAppSelector } from '../redux/store';
-import { ProductType } from '../types';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { addToCart } from '../redux/thunk/userThunks';
 import {
   HomeStackType,
   RootStackNavigatorProps,
@@ -16,61 +14,37 @@ import {
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 
-type ProductDetailScreenProps = {
-  // qnty: number;
-  // addToCartRedux: (arg0: any) => void;
-};
-
-const ProductDetailScreen = ({}: ProductDetailScreenProps) => {
+const ProductDetailScreen = () => {
   const route = useRoute<ProductScreenRouteProp>();
   const navigation = useNavigation<RootStackNavigatorProps>();
 
-  const { getProductByProductId, addToCart } = useFirestore();
+  const dispatch = useAppDispatch();
+  const { products } = useAppSelector(state => state.products);
+  const { userId } = useAppSelector(state => state.user.personalDetails);
 
-  const [product, setProduct] = useState<ProductType>({
-    catID: '',
-    deliveryDate: '',
-    imgUrl: 'https://picsum.com/400/200',
-    isFreeDelivery: false,
-    oldPrice: '',
-    price: '',
-    productID: '',
-    rating: 1,
-    title: '',
-  });
+  const product = products?.find(
+    (prod: any) => prod.id === route.params.productID,
+  );
+  console.log('UserId ---', userId);
 
-  const user = useAppSelector(state => state.user);
-  // const dispatch = useAppDispatch();
-  /**
-   * Function to run on the time of component mounting and will get the product data
-   **/
-
-  const getProduct = async () => {
-    const productTempData = await getProductByProductId(route.params.productID);
-    setProduct(productTempData);
-  };
-
-  /**
-   *  This function will add the product to cart in Firestore
-   */
   const addToCartHandler = () => {
-    addToCart({ product: product, userId: user.userId });
-    // addToCartAsync({ product: product, userId: user.userId });
+    dispatch(
+      addToCart({
+        product: product,
+        userId: userId,
+      }),
+    );
     navigation.navigate('Cart', { screen: 'CartScreen' });
   };
-
-  useEffect(() => {
-    getProduct();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <ScrollView style={styles.container}>
       <Text>{product.title}</Text>
-      <Image style={styles.img} source={{ uri: product.imgUrl }} />
+      <Image style={styles.img} source={{ uri: product?.images[0] }} />
       <View style={styles.shareIcon}>
         <Icon name="share-2" size={25} />
       </View>
+      <Text>{product.description}</Text>
       <View style={styles.priceContainer}>
         <Text style={styles.priceText}>Total: ₹{product.price}</Text>
         <AppButton

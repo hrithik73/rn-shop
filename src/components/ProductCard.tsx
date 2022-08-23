@@ -8,13 +8,17 @@ import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
 const ProductCard = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
+
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
-        navigation.navigate('ProductDetails', { productID: item.productID })
+        navigation.navigate('ProductDetails', { productID: item.id })
       }>
-      <Image style={styles.productImg} source={{ uri: item.imgUrl }} />
+      {item?.images && (
+        <Image style={styles.productImg} source={{ uri: item.images[0] }} />
+      )}
+
       <View style={styles.rightContainer}>
         <Text numberOfLines={3} style={styles.title}>
           {item.title}
@@ -24,12 +28,13 @@ const ProductCard = ({ item }: any) => {
             <Icon name="star" size={20} color={colors.primary} />
           ))}
         </View>
+
         <View style={styles.pricesContainer}>
           <Text style={styles.price}>₹{item.price}</Text>
           <Text style={styles.oldPrice}>₹{item.oldPrice}</Text>
           <Text style={styles.discount}>(19% off)</Text>
         </View>
-        <Text style={styles.deliveryDate}> Get it by {item.deliveryDate} </Text>
+        <Text style={styles.deliveryDate}> Get it by tomorrow </Text>
       </View>
     </TouchableOpacity>
   );
