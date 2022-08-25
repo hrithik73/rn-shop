@@ -1,18 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/AntDesign';
 import colors from '../constants/colors';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 
-import useFirestore from '../hooks/useFirestore';
-import { useAppSelector } from '../redux/store';
-import { CartItemProps } from '../types';
+import { removeFromCart } from '../redux/thunk/userThunks';
+import { ProductType } from '../types';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
 
-const CartCard = ({ productData, qnty }: CartItemProps) => {
+type CartItemProps = {
+  productData: ProductType;
+};
+
+const CartCard = ({ productData }: CartItemProps) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
-  const { removeFromCart } = useFirestore();
-  const user = useAppSelector(state => state.user);
+  const { personalDetails } = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -36,22 +40,16 @@ const CartCard = ({ productData, qnty }: CartItemProps) => {
         <View style={styles.bottomTrayContainer}>
           <Pressable
             onPress={() =>
-              removeFromCart({
-                productID: productData.productID,
-                userID: user.userId,
-              })
+              dispatch(
+                removeFromCart({
+                  productID: productData.productID,
+                  userID: personalDetails.userId,
+                }),
+              )
             }
             style={styles.deleteIcon}>
-            <Icon
-              name="trash"
-              size={20}
-              color={colors.red}
-              style={{ borderColor: 'black' }}
-            />
+            <Icon name="delete" size={22} color={colors.red} />
           </Pressable>
-          <View style={styles.productQuantity}>
-            <Text>{qnty}</Text>
-          </View>
           <Pressable style={styles.plusIcon}>
             <Icon name="plus" size={20} />
           </Pressable>

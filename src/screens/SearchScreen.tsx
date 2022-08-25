@@ -11,7 +11,6 @@ const SearchScreen = () => {
   // Todo :- Make a better search screen logic
   const route = useRoute<ProductScreenRouteProp>();
   const { searchedProduct } = route.params;
-  // console.log(searchedProduct);
 
   return (
     <View>

@@ -13,12 +13,9 @@ const ProductCard = ({ item }: any) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
-        navigation.navigate('ProductDetails', { productID: item.id })
+        navigation.navigate('ProductDetails', { productID: item.productID })
       }>
-      {item?.images && (
-        <Image style={styles.productImg} source={{ uri: item.images[0] }} />
-      )}
-
+      <Image style={styles.productImg} source={{ uri: item.imgUrl }} />
       <View style={styles.rightContainer}>
         <Text numberOfLines={3} style={styles.title}>
           {item.title}

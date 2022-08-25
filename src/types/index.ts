@@ -14,7 +14,9 @@ export type UserInitStateType = {
 
 export type ProductInitStateType = {
   products: ProductType[];
-  isFetching: boolean;
+  categories: CategoryType[];
+  isFetchingProducts: boolean;
+  isFetchingCategories: boolean;
 };
 
 /**
@@ -23,22 +25,22 @@ export type ProductInitStateType = {
 
 //Product Schema
 export type ProductType = {
-  id: number;
+  catID: string;
+  deliveryDate: String;
+
+  imgUrl: string;
+  isFreeDelivery: boolean;
+  oldPrice: string;
+  price: string;
+  productID: string;
+  rating: number;
   title: string;
-  price: number;
-  description: string;
-  category: {
-    id: string;
-    name: string;
-    image: string;
-  };
-  images: string[];
 };
 
 export type CategoryType = {
   name: string;
   image: string;
-  id: string;
+  catId: string;
 };
 
 export type CartItemProps = {

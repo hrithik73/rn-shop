@@ -1,7 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import AppButton from '../components/Button';
 import colors from '../constants/colors';
@@ -22,10 +22,9 @@ const ProductDetailScreen = () => {
   const { products } = useAppSelector(state => state.products);
   const { userId } = useAppSelector(state => state.user.personalDetails);
 
-  const product = products?.find(
-    (prod: any) => prod.id === route.params.productID,
+  const product = products.find(
+    (prod: any) => prod.productID === route.params.productID,
   );
-  console.log('UserId ---', userId);
 
   const addToCartHandler = () => {
     dispatch(
@@ -40,9 +39,9 @@ const ProductDetailScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <Text>{product.title}</Text>
-      <Image style={styles.img} source={{ uri: product?.images[0] }} />
+      <Image style={styles.img} source={{ uri: product.imgUrl }} />
       <View style={styles.shareIcon}>
-        <Icon name="share-2" size={25} />
+        <Icon name="sharealt" size={25} />
       </View>
       <Text>{product.description}</Text>
       <View style={styles.priceContainer}>

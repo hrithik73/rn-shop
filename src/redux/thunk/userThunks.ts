@@ -2,7 +2,9 @@ import auth from '@react-native-firebase/auth';
 import { FieldError } from 'react-hook-form';
 import useFirestore from '../../hooks/useFirestore';
 import { ProductType } from '../../types';
-import { ADD_TO_CART, USER_LOGGED_IN } from '../constants';
+import { ADD_TO_CART, REMOVE_FROM_CART, USER_LOGGED_IN } from '../constants';
+import { TypedDispatch } from '../store';
+import { getCategories } from './productsThunk';
 
 type LogInProps = {
   email: string;
@@ -21,6 +23,12 @@ type AddToCartProps = {
   product: ProductType;
   userId: string;
 };
+
+type RemoveFromCartProps = {
+  productID: string;
+  userID: string;
+};
+
 // Thunk for Login the user
 export const logInUser =
   ({ email, pass, setError }: LogInProps) =>
@@ -35,8 +43,7 @@ export const logInUser =
         });
       })
       .catch(error => {
-        console.log('Geerting error', error.code);
-
+        // console.log('Geerting error', error.code);
         if (error.code === 'auth/invalid-email') {
           setError('email', {
             type: 'custom',
@@ -54,6 +61,7 @@ export const logInUser =
           message: 'Error While Login',
         });
       });
+    dispatch(getCategories);
   };
 
 export const signUpuser =
@@ -88,6 +96,7 @@ export const signUpuser =
         }
         console.error(error);
       });
+    dispatch(getCategories);
   };
 
 export const addToCart =
@@ -96,4 +105,12 @@ export const addToCart =
     const { addToCartInFireStore } = useFirestore();
     addToCartInFireStore({ product, userId });
     dispatch({ type: ADD_TO_CART, payload: product });
+  };
+
+export const removeFromCart =
+  ({ productID, userID }: RemoveFromCartProps) =>
+  async (dispatch: TypedDispatch) => {
+    const { removeFromCartFireStore } = useFirestore();
+    removeFromCartFireStore({ productID: productID, userID: userID });
+    dispatch({ type: REMOVE_FROM_CART, payload: productID });
   };

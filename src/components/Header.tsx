@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import colors from '../constants/colors';
 import useFirestore from '../hooks/useFirestore';
@@ -45,7 +45,7 @@ const Header = () => {
         // onFocus={() => navigation.navigate('Search')}
       />
       <Pressable style={styles.iconContainer} onPress={submitHandler}>
-        <Icon name="search" size={30} />
+        <Icon name="search1" size={30} />
       </Pressable>
     </SafeAreaView>
   );

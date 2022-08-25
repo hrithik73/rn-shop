@@ -1,9 +1,17 @@
 import { ProductInitStateType } from '../../types';
-import { FETCHING_PRODUCTS, SET_PRODUCTS, UPDATE_PRODUCTS } from '../constants';
+import {
+  FETCHING_PRODUCTS,
+  SET_PRODUCTS,
+  UPDATE_PRODUCTS,
+  SET_CATEGORIES,
+  FETCHING_CATEGORIES,
+} from '../constants';
 
 const initialState: ProductInitStateType = {
   products: [],
-  isFetching: false,
+  categories: [],
+  isFetchingProducts: false,
+  isFetchingCategories: false,
 };
 
 export default (state = initialState, action: any) => {
@@ -11,7 +19,7 @@ export default (state = initialState, action: any) => {
     case FETCHING_PRODUCTS:
       return {
         ...state,
-        isFetching: action.payload,
+        isProductFetching: action.payload,
       };
     case SET_PRODUCTS:
       return {
@@ -22,6 +30,16 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         products: [...state.products, ...action.payload],
+      };
+    case SET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case FETCHING_CATEGORIES:
+      return {
+        ...state,
+        isFetchingCategories: action.payload,
       };
     default: {
       return state;

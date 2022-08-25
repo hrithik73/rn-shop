@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/AntDesign';
 import auth from '@react-native-firebase/auth';
 import remoteConfig from '@react-native-firebase/remote-config';
 import AppButton from '../../components/Button';
@@ -83,8 +83,8 @@ const UserScreen = () => {
     <SafeAreaView>
       <View style={styles.container}>
         <Icon
-          name="log-out"
-          size={30}
+          name="logout"
+          size={20}
           color="#900"
           onPress={() =>
             auth()

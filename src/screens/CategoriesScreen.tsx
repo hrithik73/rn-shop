@@ -1,71 +1,86 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import {
-  FlatList,
-  // Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { useEffect } from 'react';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import Heading from '../components/Heading';
-import useApi from '../hooks/useApi';
-import { CategoryType } from '../types';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
-
 import LinearGradient from 'react-native-linear-gradient';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
+import { Text } from 'react-native-paper';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { getCategories } from '../redux/thunk/productsThunk';
 
 const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
 const CategoriesItem = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
-
   return (
     <TouchableOpacity
       style={styles.categoriesItemContainer}
       onPress={() =>
         navigation.navigate('Product', {
-          catID: item.id,
-          catName: item.name,
+          catName: item.catName,
+          catID: item.catID,
         })
       }>
-      {/* <Image source={{ uri: item.image }} style={styles.img} /> */}
-      <ShimmerPlaceholder
-        LinearGradient={LinearGradient}
-        style={styles.shimmerContainer}
-      />
-      <Heading>{item.name}</Heading>
+      <FastImage source={{ uri: item.imgUrl }} style={[styles.img]} />
+      <Text style={styles.heading}>{item.catName}</Text>
     </TouchableOpacity>
   );
 };
 
+const ShimmerView = () => {
+  const dummyData = [{}, {}, {}, {}, {}];
+  return (
+    <FlatList
+      data={dummyData}
+      numColumns={2}
+      renderItem={({ index }) => {
+        return (
+          <View style={styles.categoriesItemContainer}>
+            <ShimmerPlaceholder
+              key={index}
+              LinearGradient={LinearGradient}
+              style={styles.shimmerContainer}
+            />
+          </View>
+        );
+      }}
+    />
+  );
+};
+
 const CategoriesScreen = () => {
-  const { getAllCategories } = useApi();
-  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const dispatch = useAppDispatch();
+  const { categories, isFetchingCategories } = useAppSelector(
+    state => state.products,
+  );
 
   useEffect(() => {
-    const getCategoriesFromFireStore = async () => {
-      const categoriesData = await getAllCategories();
-      setCategories(categoriesData);
-    };
-    getCategoriesFromFireStore();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  console.log({ categories });
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
       <Heading>Shop by Categories</Heading>
-      <FlatList
-        data={categories}
-        numColumns={2}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => {
-          return <CategoriesItem item={item} />;
-        }}
-      />
+      {isFetchingCategories ? (
+        <ShimmerView />
+      ) : (
+        <FlatList
+          data={categories}
+          numColumns={2}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => {
+            return (
+              <CategoriesItem
+                item={item}
+                isFetchingCategories={isFetchingCategories}
+              />
+            );
+          }}
+        />
+      )}
     </View>
   );
 };
@@ -78,8 +93,8 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   heading: {
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontWeight: '400',
+    fontSize: 15,
     textAlign: 'center',
     marginVertical: 5,
   },
@@ -92,7 +107,6 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     borderRadius: 10,
-    // margin: 20,
   },
 });
 export default CategoriesScreen;

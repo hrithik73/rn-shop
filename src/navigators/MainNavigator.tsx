@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import Header from '../components/Header';
-import { TAB_ICON_SIZE } from '../constants/AppConstants';
 import colors from '../constants/colors';
 import CartScreen from '../screens/main/CartScreen';
 import HomeScreen from '../screens/main/HomeScreen';
@@ -48,25 +47,32 @@ const CartNavigator = () => {
     </Cart.Navigator>
   );
 };
-
 const MainNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
         header: () => <Header />,
+        tabBarActiveTintColor: colors.primary,
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
       }}>
       <Tab.Screen
         name="Home"
         component={HomeNavigator}
         options={{
-          tabBarIcon: () => <Icon name="home" size={TAB_ICON_SIZE} />,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" color={color} size={size} />
+          ),
         }}
       />
       <Tab.Screen
         name="Cart"
         component={CartNavigator}
         options={{
-          tabBarIcon: () => <Icon name="shopping-cart" size={TAB_ICON_SIZE} />,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="shoppingcart" color={color} size={size} />
+          ),
         }}
       />
       <Tab.Screen
@@ -74,8 +80,8 @@ const MainNavigator = () => {
         component={UserScreen}
         options={{
           headerShown: false,
-          tabBarIcon: () => (
-            <Icon name="user" color={colors.black} size={TAB_ICON_SIZE} />
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} />
           ),
         }}
       />

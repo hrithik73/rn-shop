@@ -16,7 +16,7 @@ type AddToCartInFireStoreProps = {
   product: any;
 };
 
-type RemoveFromCart = {
+type RemoveFromCartFireStoreProps = {
   userID: string;
   productID: string;
 };
@@ -54,20 +54,22 @@ const useFirestore = () => {
   const getProductByCatID = async (
     catId: string,
     lim: number = 10,
-    onSuccess: (arg0: boolean) => void,
+    // onSuccess: (arg0: boolean) => void,
   ) => {
     let productsBycatID: ProductType[] = [];
-
     await firestore()
       .collection('products')
       .where('catID', '==', catId)
       .limit(lim)
       .get()
       .then(querySnapshot => {
-        onSuccess(false);
+        // onSuccess(false);
         querySnapshot.forEach(doc => {
           productsBycatID.push(doc.data() as ProductType);
         });
+      })
+      .catch(e => {
+        console.log(e);
       });
     return productsBycatID;
   };
@@ -78,16 +80,15 @@ const useFirestore = () => {
    */
   const getProductByProductId = async (productID: string) => {
     let product: ProductType = {
-      id: 1,
+      catID: '',
+      deliveryDate: '',
+      imgUrl: '',
+      isFreeDelivery: false,
+      oldPrice: '',
+      price: '',
+      productID: '',
+      rating: 1,
       title: '',
-      price: 1,
-      description: '',
-      category: {
-        id: '',
-        name: '',
-        image: '',
-      },
-      images: [],
     };
     await firestore()
       .collection('products')
@@ -154,8 +155,8 @@ const useFirestore = () => {
         productData: product,
         qnty: 1,
       })
-      .then(e => {
-        console.log('Product Added', e);
+      .then(() => {
+        console.log('Product Added');
       })
       .catch(e => {
         console.log(e);
@@ -187,7 +188,13 @@ const useFirestore = () => {
    * @param {string} productID Product Id of the product to remove
    */
 
-  const removeFromCart = async ({ userID, productID }: RemoveFromCart) => {
+  const removeFromCartFireStore = async ({
+    userID,
+    productID,
+  }: RemoveFromCartFireStoreProps) => {
+    console.log({ userID });
+    console.log({ productID });
+
     await firestore()
       .collection('users')
       .doc(userID)
@@ -206,7 +213,7 @@ const useFirestore = () => {
     addUserToDB,
     addToCartInFireStore,
     getCartData,
-    removeFromCart,
+    removeFromCartFireStore,
     getProductByName,
   };
 };

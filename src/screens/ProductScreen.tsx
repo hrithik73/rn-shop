@@ -18,16 +18,18 @@ const PER_PAGE_PRODUCT_LIMIT = 10;
 
 const ProductScreen = () => {
   const dispatch = useAppDispatch();
-  const { products, isFetching } = useAppSelector(state => state.products);
+  const { products, isFetchingProducts } = useAppSelector(
+    state => state.products,
+  );
+
   const route = useRoute<ProductScreenRouteProp>();
   const [offset, setOffSet] = useState(0);
 
   const fetchMoreData = async () => {
     dispatch(
       updateProductsList({
-        catId: route.params.catID,
+        catName: route.params.catName,
         limit: PER_PAGE_PRODUCT_LIMIT,
-        offset: offset + 10,
       }),
     );
     setOffSet(offset + 10);
@@ -40,10 +42,9 @@ const ProductScreen = () => {
         catId: route.params.catID,
       }),
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [route.params.catID]);
+  }, [dispatch, route.params.catID]);
 
-  if (isFetching && offset === 0) {
+  if (isFetchingProducts && offset === 0) {
     return <Loading />;
   }
 
@@ -61,7 +62,7 @@ const ProductScreen = () => {
         }}
         onEndReached={fetchMoreData}
       />
-      {isFetching && (
+      {isFetchingProducts && (
         <View style={styles.loader}>
           <Loading />
         </View>

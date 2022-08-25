@@ -16,7 +16,7 @@ export type CartStackType = {
 
 export type HomeStackType = {
   HomeScreen: undefined;
-  Product: { catID: string; catName: string };
+  Product: { catName: string; catID: string };
   ProductDetails: { productID: string };
   CartScreen: undefined;
   Search: {

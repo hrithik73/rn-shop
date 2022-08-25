@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { Provider } from 'react-redux';
 import { Provider as PaperProvider } from 'react-native-paper';
 
@@ -12,10 +11,8 @@ import AppNavigator from './src/navigators';
 import { persistor, store } from './src/redux/store';
 
 const App = () => {
-  // Load the Assets
   useEffect(() => {
     Icon.loadFont();
-    AntIcon.loadFont();
   });
 
   usePushNotification();
