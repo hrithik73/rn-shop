@@ -7,7 +7,6 @@ import Heading from '../components/Heading';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
 import LinearGradient from 'react-native-linear-gradient';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
-import { Text } from 'react-native-paper';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { getCategories } from '../redux/thunk/productsThunk';
 
@@ -15,6 +14,7 @@ const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
 const CategoriesItem = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
+
   return (
     <TouchableOpacity
       style={styles.categoriesItemContainer}
@@ -25,7 +25,6 @@ const CategoriesItem = ({ item }: any) => {
         })
       }>
       <FastImage source={{ uri: item.imgUrl }} style={[styles.img]} />
-      <Text style={styles.heading}>{item.catName}</Text>
     </TouchableOpacity>
   );
 };
