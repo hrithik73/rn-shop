@@ -11,6 +11,7 @@ const initialState: UserInitStateType = {
   personalDetails: {
     email: '',
     userId: '',
+    name: '',
   },
   cart: [],
 };
@@ -24,8 +25,10 @@ export default (state = initialState, action: any) => {
         personalDetails: {
           userId: action.payload.userId,
           email: action.payload.email,
+          name: action.payload.name,
         },
       };
+
     case USER_SIGNED_OUT:
       return {
         ...state,

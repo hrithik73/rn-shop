@@ -1,5 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { Modal } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
 import auth from '@react-native-firebase/auth';
 import remoteConfig from '@react-native-firebase/remote-config';
@@ -7,6 +9,9 @@ import AppButton from '../../components/Button';
 import PushNotification from 'react-native-push-notification';
 import crashlytics from '@react-native-firebase/crashlytics';
 import firestore from '@react-native-firebase/firestore';
+import colors from '../../constants/colors';
+import { Portal } from 'react-native-paper';
+import { useAppSelector } from '../../redux/store';
 
 const showNotification = () => {
   PushNotification.localNotification({
@@ -59,7 +64,10 @@ const addDummyData = async () => {
 
 const UserScreen = () => {
   const [haveOffer, setHaveOffer] = useState(false);
+  const { personalDetails } = useAppSelector(state => state.user);
+  const [visible, setVisible] = useState(false);
 
+  // console.log({ personalDetails });
   const fetchRemoteData = async () => {
     try {
       await remoteConfig().setDefaults({ haveOffer: false }); // setting default value
@@ -75,22 +83,30 @@ const UserScreen = () => {
     }
   };
 
+  const logoutHandler = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('Successfully Signout'));
+  };
+
   useEffect(() => {
     fetchRemoteData();
   }, []);
 
   return (
     <SafeAreaView>
-      <View style={styles.container}>
+      <View style={styles.userCard}>
+        <View style={styles.avatar}>
+          <Icon name="user" size={35} />
+        </View>
+        <View>
+          <Text>{personalDetails.email}</Text>
+        </View>
         <Icon
           name="logout"
-          size={20}
+          size={25}
           color="#900"
-          onPress={() =>
-            auth()
-              .signOut()
-              .then(() => console.log('SignOut'))
-          }
+          onPress={() => setVisible(true)}
         />
       </View>
       {haveOffer && (
@@ -99,25 +115,54 @@ const UserScreen = () => {
         </View>
       )}
       <AppButton
-        customStyle={{ margin: 100 }}
-        text="Get Push Notification"
+        icon="bells"
+        customStyle={styles.btnStyle}
+        text="Push Notification"
         onPress={() => showNotification()}
       />
       <AppButton
-        customStyle={{ margin: 100 }}
+        icon="warning"
+        customStyle={styles.btnStyle}
         text="Crash"
         onPress={() => crashlytics().crash()}
       />
       <AppButton
-        customStyle={{ marginHorizontal: 100 }}
+        icon="addfile"
+        customStyle={styles.btnStyle}
         text="Add Dummy Data"
         onPress={() => addDummyData()}
       />
+
+      <Portal>
+        <Modal
+          visible={visible}
+          onDismiss={() => setVisible(false)}
+          dismissable
+          contentContainerStyle={styles.containerStyle}>
+          <Text style={{ textAlign: 'center' }}>
+            Are You Sure want to Logout?
+          </Text>
+          <AppButton
+            icon="logout"
+            customStyle={styles.logoutBtn}
+            text="Logout"
+            onPress={logoutHandler}
+          />
+        </Modal>
+      </Portal>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  avatar: {
+    height: 50,
+    width: 50,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+  },
   container: {
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
@@ -125,9 +170,34 @@ const styles = StyleSheet.create({
   },
   offerTxtContainer: {
     height: 20,
-    marginTop: 100,
+    marginVertical: 100,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  btnStyle: {
+    marginHorizontal: 100,
+    borderRadius: 15,
+    marginVertical: 15,
+  },
+  logoutBtn: {
+    backgroundColor: 'red',
+    marginVertical: 50,
+    marginHorizontal: 100,
+  },
+  userCard: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    height: 100,
+    padding: 20,
+    margin: 10,
+    borderRadius: 20,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  containerStyle: {
+    backgroundColor: 'white',
+    padding: 20,
+    justifyContent: 'center',
   },
 });
 

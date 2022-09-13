@@ -6,6 +6,7 @@ export type UserInitStateType = {
   personalDetails: {
     email: string;
     userId: string;
+    name: string;
   };
   isLoggedIn: boolean;
   cart: ProductType[];

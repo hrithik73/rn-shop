@@ -39,7 +39,7 @@ export const logInUser =
         console.log('User Logged-In Successfully');
         dispatch({
           type: USER_LOGGED_IN,
-          payload: { email: email, userId: user.uid },
+          payload: { email: email, userId: user.uid, name: user.displayName },
         });
       })
       .catch(error => {
@@ -73,13 +73,22 @@ export const signUpuser =
       .createUserWithEmailAndPassword(email, pass)
       .then(userRef => {
         // Add user to DB
+
         addUserToDB({
           userID: userRef.user.uid,
           name: name,
           email: email,
         });
+
         // Set User in Redux
-        dispatch({ type: USER_LOGGED_IN, payload: userRef.user.uid });
+        dispatch({
+          type: USER_LOGGED_IN,
+          payload: {
+            email: email,
+            userId: userRef.user.uid,
+            name: userRef.user.displayName,
+          },
+        });
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {

@@ -1,9 +1,10 @@
+import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { Provider } from 'react-redux';
 import { Provider as PaperProvider } from 'react-native-paper';
-
 import { PersistGate } from 'redux-persist/integration/react';
 
 import usePushNotification from './src/hooks/usePushNotification';
@@ -11,20 +12,24 @@ import AppNavigator from './src/navigators';
 import { persistor, store } from './src/redux/store';
 
 const App = () => {
+  // Loading fonts for Vector icons in IOS
+  //TODO:- Need a Permanent fix
+
   useEffect(() => {
-    Icon.loadFont();
+    Feather.loadFont();
+    AntDesign.loadFont();
   });
 
   usePushNotification();
 
   return (
     <Provider store={store}>
-      <StatusBar barStyle="dark-content" />
-      <PersistGate loading={null} persistor={persistor}>
-        <PaperProvider>
+      <PaperProvider>
+        <StatusBar barStyle="dark-content" />
+        <PersistGate loading={null} persistor={persistor}>
           <AppNavigator />
-        </PaperProvider>
-      </PersistGate>
+        </PersistGate>
+      </PaperProvider>
     </Provider>
   );
 };
