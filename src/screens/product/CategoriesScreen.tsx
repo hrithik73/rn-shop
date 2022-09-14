@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import Heading from '../components/Heading';
-import { HomeStackNavigationProps } from '../types/NavigationTypes';
+import Heading from '../../components/Heading';
+import { HomeStackNavigationProps } from '../../types/NavigationTypes';
 import LinearGradient from 'react-native-linear-gradient';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import { getCategories } from '../redux/thunk/productsThunk';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { getCategories } from '../../redux/thunk/productsThunk';
 
 const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 

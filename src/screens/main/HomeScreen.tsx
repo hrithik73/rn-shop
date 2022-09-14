@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-import CategoriesScreen from '../CategoriesScreen';
+import CategoriesScreen from '../product/CategoriesScreen';
 
 const HomeScreen = () => {
   // const { personalDetails, isLoggedIn } = useAppSelector(state => state.user);

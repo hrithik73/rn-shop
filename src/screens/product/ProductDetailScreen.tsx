@@ -3,14 +3,14 @@ import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import AppButton from '../components/Button';
-import colors from '../constants/colors';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import { addToCart } from '../redux/thunk/userThunks';
+import AppButton from '../../components/Button';
+import colors from '../../constants/colors';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { addToCart } from '../../redux/thunk/userThunks';
 import {
   HomeStackType,
   RootStackNavigatorProps,
-} from '../types/NavigationTypes';
+} from '../../types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 

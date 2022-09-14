@@ -62,7 +62,7 @@ const AppTextInput = ({
           <TextInput
             autoCapitalize="none"
             onChangeText={val => onChange(val)}
-            placeholderTextColor={colors.black}
+            placeholderTextColor={colors.grey}
             onBlur={onBlur}
             style={styles.input}
             secureTextEntry={!showPass && isPass}

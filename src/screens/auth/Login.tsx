@@ -72,11 +72,7 @@ const Login = () => {
         showPass={showPass}
         isPass={true}
       />
-      <AppButton
-        customStyle={styles.logInbtn}
-        text="Login"
-        onPress={handleSubmit(submitHandler)}
-      />
+      <AppButton text="Login" onPress={handleSubmit(submitHandler)} />
       <Text style={styles.orTxt}>OR</Text>
       <AppButton
         customStyle={styles.signUpInbtn}
@@ -94,14 +90,8 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 150,
   },
-  logInbtn: {
-    marginTop: 20,
-    marginHorizontal: 30,
-  },
   signUpInbtn: {
     backgroundColor: colors.grey,
-    marginTop: 20,
-    marginHorizontal: 30,
   },
   orTxt: {
     paddingTop: 15,

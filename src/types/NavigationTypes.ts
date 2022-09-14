@@ -6,6 +6,7 @@ import { ProductType } from './index';
 export type RootStackType = {
   Home: NavigatorScreenParams<HomeStackType>;
   Cart: NavigatorScreenParams<CartStackType>;
+  Search: undefined;
   User: undefined;
 };
 

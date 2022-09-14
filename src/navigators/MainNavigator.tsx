@@ -8,9 +8,9 @@ import colors from '../constants/colors';
 import CartScreen from '../screens/main/CartScreen';
 import HomeScreen from '../screens/main/HomeScreen';
 import UserScreen from '../screens/main/UserScreen';
-import ProductDetailScreen from '../screens/ProductDetailScreen';
-import ProductScreen from '../screens/ProductScreen';
-import SearchScreen from '../screens/SearchScreen';
+import ProductDetailScreen from '../screens/product/ProductDetailScreen';
+import ProductScreen from '../screens/product/ProductScreen';
+import SearchScreen from '../screens/main/SearchScreen';
 import {
   CartStackType,
   HomeStackType,
@@ -63,6 +63,15 @@ const MainNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="search1" color={color} size={size} />
           ),
         }}
       />
