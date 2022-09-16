@@ -4,13 +4,13 @@ import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import colors from '../constants/colors';
-import useFirestore from '../hooks/useFirestore';
-import { ProductType } from '../types';
-import { HomeStackNavigationProps } from '../types/NavigationTypes';
+import colors from '../../constants/colors';
+import useFirestore from '../../hooks/useFirestore';
+import { ProductType } from '../../types';
+import { HomeStackNavigationProps } from '../../types/NavigationTypes';
 
 // Todo:- Implement Search Functionality better
-const Header = () => {
+const HomeHeader = () => {
   const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const navigation = useNavigation<HomeStackNavigationProps>();
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header;
+export default HomeHeader;

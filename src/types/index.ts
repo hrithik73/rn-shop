@@ -11,6 +11,7 @@ export type UserInitStateType = {
   isLoggedIn: boolean;
   cart: ProductType[];
   location?: string;
+  totalAmount: number;
 };
 
 export type ProductInitStateType = {

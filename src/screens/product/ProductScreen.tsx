@@ -1,6 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 
 import Heading from '../../components/Heading';
 import Loading from '../../components/Loading';
@@ -49,7 +49,7 @@ const ProductScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Heading>{route.params.catName}</Heading>
       <FlatList
         data={products}
@@ -67,7 +67,7 @@ const ProductScreen = () => {
           <Loading />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

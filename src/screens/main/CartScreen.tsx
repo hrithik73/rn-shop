@@ -1,20 +1,24 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
   FlatList,
+  Pressable,
   RefreshControl,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import AppButton from '../../components/Button';
 
 import CartCard from '../../components/CartCard';
+import { CURRENCY_SIGNS } from '../../constants/AppConstants';
 import { useAppSelector } from '../../redux/store';
 
 const CartScreen = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
-  const { cart: cartData } = useAppSelector(state => state.user);
+  const { cart: cartData, totalAmount } = useAppSelector(state => state.user);
 
   // TODO:- Add refresh
   const onRefreshHandler = () => {
@@ -42,6 +46,27 @@ const CartScreen = () => {
           <Text>Cart is Empty, Please Add something</Text>
         </View>
       )}
+      <Pressable
+        style={{
+          flex: 1,
+          height: 200,
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}>
+        <View>
+          <Text>Total </Text>
+          <Text>
+            {CURRENCY_SIGNS.rupees}
+            {totalAmount}
+          </Text>
+        </View>
+        <AppButton
+          customStyle={{ width: '50%', marginHorizontal: 0, margin: 0 }}
+          text="Checkout"
+          onPress={() => console.log('')}
+        />
+      </Pressable>
     </SafeAreaView>
   );
 };

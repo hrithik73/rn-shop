@@ -1,9 +1,12 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import AppButton from '../../components/Button';
+import Heading from '../../components/Heading';
+import { CURRENCY_SIGNS } from '../../constants/AppConstants';
 import colors from '../../constants/colors';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addToCart } from '../../redux/thunk/userThunks';
@@ -37,64 +40,90 @@ const ProductDetailScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text>{product.title}</Text>
-      <Image style={styles.img} source={{ uri: product.imgUrl }} />
-      <View style={styles.shareIcon}>
-        <Icon name="sharealt" size={25} />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Icon name="left" size={22} />
+        <Text style={styles.heading}>Product detail</Text>
+        <Icon name="shoppingcart" size={25} />
       </View>
-      <Text>{product.description}</Text>
-      <View style={styles.priceContainer}>
-        <Text style={styles.priceText}>Total: ₹{product.price}</Text>
+      <Image style={styles.heroImg} source={{ uri: product.imgUrl }} />
+      <Heading numberOfLines={1} customStyles={styles.productTitle}>
+        {product.title}
+      </Heading>
+
+      <View style={styles.reviewContainer}>
+        <Icon name="star" color={colors.primary} size={18} />
+        <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>
+          {product.rating}
+        </Text>
+        <Text style={{ fontWeight: '200', fontSize: 12, left: 10 }}>
+          (200 Reviews)
+        </Text>
+      </View>
+
+      {/* Price Card at Bottom */}
+      <View style={styles.priceCard}>
+        <Text style={styles.priceTxt}>
+          {CURRENCY_SIGNS.rupees}
+          {product.price}
+        </Text>
         <AppButton
-          text="Buy Now"
-          customStyle={styles.buyNowBtn}
-          onPress={() => console.log('Buy Now')}
+          text="Add to Cart"
+          onPress={addToCartHandler}
+          customStyle={styles.addToCartBtn}
         />
-        <AppButton text="Add to Cart" onPress={addToCartHandler} />
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
-  buyNowBtn: {
-    marginVertical: 12,
-    backgroundColor: colors.yellow,
-  },
   container: {
     flex: 1,
-    padding: 10,
-  },
-  img: {
-    height: 300,
-    width: '100%',
-    resizeMode: 'contain',
-    marginTop: 20,
-    borderRadius: 10,
     backgroundColor: 'white',
+    marginHorizontal: 5,
   },
-  shareIcon: {
-    position: 'absolute',
-    right: 20,
-    top: 65,
-    backgroundColor: 'grey',
-    height: 40,
-    width: 40,
-    justifyContent: 'center',
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    borderRadius: 20,
+    marginTop: 12,
   },
-  priceContainer: {
-    marginTop: 10,
-    borderColor: 'lightgrey',
-    borderTopWidth: 5,
-    borderBottomWidth: 5,
-    height: 150,
+  heading: {
+    fontSize: 18,
   },
-  priceText: {
+  heroImg: {
+    resizeMode: 'contain',
+    height: '50%',
+    width: '100%',
+  },
+  priceCard: {
+    position: 'absolute',
+    bottom: 0,
+    height: 100,
+    width: '100%',
+    borderRadius: 30,
+    backgroundColor: colors.grey,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  productTitle: {
+    textAlign: 'left',
+    margin: 10,
+  },
+  priceTxt: {
+    color: 'white',
+    fontSize: 20,
     fontWeight: 'bold',
-    fontSize: 15,
-    paddingTop: 10,
+  },
+  addToCartBtn: {
+    width: 200,
+    marginTop: 0,
+    marginHorizontal: 0,
+  },
+  reviewContainer: {
+    flexDirection: 'row',
+    margin: 10,
   },
 });
 

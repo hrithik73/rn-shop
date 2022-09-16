@@ -25,12 +25,29 @@ const HomeNavigator = () => {
   return (
     <Home.Navigator
       screenOptions={{
-        headerShown: false,
+        headerBackTitleVisible: false,
+        // headerShown: false,
       }}>
-      <Home.Screen name="HomeScreen" component={HomeScreen} />
-      <Home.Screen name="Product" component={ProductScreen} />
-      <Home.Screen name="ProductDetails" component={ProductDetailScreen} />
-      <Home.Screen name="Search" component={SearchScreen} />
+      <Home.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ header: () => <Header type="home" /> }}
+      />
+      <Home.Screen
+        name="Product"
+        component={ProductScreen}
+        options={{ headerShown: false }}
+      />
+      <Home.Screen
+        name="ProductDetails"
+        component={ProductDetailScreen}
+        options={{ headerShown: false }}
+      />
+      <Home.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{ headerShown: false }}
+      />
     </Home.Navigator>
   );
 };
@@ -51,7 +68,7 @@ const MainNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        header: () => <Header />,
+        headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarLabelStyle: {
           fontSize: 12,

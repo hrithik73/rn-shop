@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { CURRENCY_SIGNS } from '../constants/AppConstants';
 import colors from '../constants/colors';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 
@@ -33,7 +34,10 @@ const CartCard = ({ productData }: CartItemProps) => {
             <Text numberOfLines={2} style={styles.title}>
               {productData.title}
             </Text>
-            <Text style={styles.price}>₹{productData.price}</Text>
+            <Text style={styles.price}>
+              {CURRENCY_SIGNS.rupees}
+              {productData.price}
+            </Text>
             <Text style={styles.freeShipping}>Eligible for Free Shipping</Text>
           </View>
         </Pressable>

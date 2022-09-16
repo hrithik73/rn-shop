@@ -6,6 +6,11 @@ export const FontSize = {
 
 export const TAB_ICON_SIZE = 25;
 
+export const CURRENCY_SIGNS = {
+  rupees: '₹',
+  dollar: '$',
+};
+
 export const CATEGORY = [
   {
     name: 'electronics',

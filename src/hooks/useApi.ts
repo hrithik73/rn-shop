@@ -26,7 +26,7 @@ const useApi = () => {
     limit,
   }: GetProductByCategory) => {
     let products: ProductType[] = [];
-    console.log(`${baseURL}/products/category/${catName}/?limit=${limit}`);
+    // console.log(`${baseURL}/products/category/${catName}/?limit=${limit}`);
 
     try {
       const res = await Axios.get(

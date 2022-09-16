@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { CURRENCY_SIGNS } from '../constants/AppConstants';
 
 import colors from '../constants/colors';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
@@ -27,8 +28,14 @@ const ProductCard = ({ item }: any) => {
         </View>
 
         <View style={styles.pricesContainer}>
-          <Text style={styles.price}>₹{item.price}</Text>
-          <Text style={styles.oldPrice}>₹{item.oldPrice}</Text>
+          <Text style={styles.price}>
+            {CURRENCY_SIGNS.rupees}
+            {item.price}
+          </Text>
+          <Text style={styles.oldPrice}>
+            {CURRENCY_SIGNS.rupees}
+            {item.oldPrice}
+          </Text>
           <Text style={styles.discount}>(19% off)</Text>
         </View>
         <Text style={styles.deliveryDate}> Get it by tomorrow </Text>
