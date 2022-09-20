@@ -2,27 +2,14 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Button, Alert } from 'react-native';
 import { CardField, useConfirmPayment } from '@stripe/stripe-react-native';
-
-//ADD localhost address of your server
-const API_URL = 'http://localhost:3000';
+import useApi from '../hooks/useApi';
+import { useAppSelector } from '../redux/store';
 
 const StripeApp = () => {
   const [cardDetails, setCardDetails] = useState({});
+  const { totalAmount } = useAppSelector(state => state.user);
   const { confirmPayment, loading } = useConfirmPayment();
-
-  const fetchPaymentIntentClientSecret = async () => {
-    const response = await fetch(`${API_URL}/create-payment-intent`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const { clientSecret, error } = await response.json();
-    console.log('Client Secrete', clientSecret);
-    console.log('Error', error);
-
-    return { clientSecret, error };
-  };
+  const { fetchPaymentIntentClientSecret } = useApi();
 
   const handlePayPress = async () => {
     //1.Gather the customer's billing information (e.g., email)
@@ -30,10 +17,11 @@ const StripeApp = () => {
       Alert.alert('Please enter Complete card details');
       return;
     }
-
     //2.Fetch the intent client secret from the backend
     try {
-      const { clientSecret, error } = await fetchPaymentIntentClientSecret();
+      const { clientSecret, error } = await fetchPaymentIntentClientSecret(
+        totalAmount,
+      );
       //2. confirm the payment
       if (error) {
         console.log('Unable to process payment');

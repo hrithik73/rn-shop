@@ -11,18 +11,24 @@ import { StripeProvider } from '@stripe/stripe-react-native';
 import usePushNotification from './src/hooks/usePushNotification';
 import AppNavigator from './src/navigators';
 import { persistor, store } from './src/redux/store';
+import useApi from './src/hooks/useApi';
 
 const App = () => {
+  const [publishableKey, sestPublishableKey] = useState('');
+  const { getPublishableKey } = useApi();
   // Loading fonts for Vector icons in IOS
   // TODO:- Need a Permanent fix
-  const [publishableKey, sestPublishableKey] = useState(
-    'pk_test_51LibwJSGgvJIkLhF1SYLeU7sNOwKl7IIi7hOhCetIZhQsylVGKeIQ7eFCwl0spNcoy8XkkKybkrYvnivTo4EWKAU00vmJCPIX3',
-  );
 
   useEffect(() => {
     Feather.loadFont();
     AntDesign.loadFont();
-  });
+
+    const getKey = async () => {
+      const key = await getPublishableKey();
+      sestPublishableKey(key);
+    };
+    getKey();
+  }, [getPublishableKey]);
 
   usePushNotification();
 
