@@ -13,6 +13,7 @@ export type RootStackType = {
 export type CartStackType = {
   CartScreen: undefined;
   ProductDetails: undefined;
+  Payment: undefined;
 };
 
 export type HomeStackType = {
@@ -35,3 +36,5 @@ export type HomeStackNavigationProps = NativeStackNavigationProp<HomeStackType>;
 export type AuthStackNavigatorProps = NativeStackNavigationProp<AuthStackType>;
 
 export type RootStackNavigatorProps = BottomTabNavigationProp<RootStackType>;
+
+export type CartStackNavigatorProps = NativeStackNavigationProp<CartStackType>;

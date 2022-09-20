@@ -16,6 +16,7 @@ import {
   HomeStackType,
   RootStackType,
 } from '../types/NavigationTypes';
+import PaymentScreen from '../screens/PaymentScreen';
 
 const Tab = createBottomTabNavigator<RootStackType>();
 const Home = createNativeStackNavigator<HomeStackType>();
@@ -56,11 +57,14 @@ const CartNavigator = () => {
   return (
     <Cart.Navigator
       initialRouteName="CartScreen"
-      screenOptions={{
-        headerShown: false,
-      }}>
+      screenOptions={
+        {
+          // headerShown: false,
+        }
+      }>
       <Cart.Screen name="CartScreen" component={CartScreen} />
       <Cart.Screen name="ProductDetails" component={ProductDetailScreen} />
+      <Cart.Screen name="Payment" component={PaymentScreen} />
     </Cart.Navigator>
   );
 };

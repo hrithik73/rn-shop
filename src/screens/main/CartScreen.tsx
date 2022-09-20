@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -14,10 +15,11 @@ import AppButton from '../../components/Button';
 import CartCard from '../../components/CartCard';
 import { CURRENCY_SIGNS } from '../../constants/AppConstants';
 import { useAppSelector } from '../../redux/store';
+import { CartStackNavigatorProps } from '../../types/NavigationTypes';
 
 const CartScreen = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
-
+  const navigation = useNavigation<CartStackNavigatorProps>();
   const { cart: cartData, totalAmount } = useAppSelector(state => state.user);
 
   // TODO:- Add refresh
@@ -64,7 +66,7 @@ const CartScreen = () => {
         <AppButton
           customStyle={{ width: '50%', marginHorizontal: 0, margin: 0 }}
           text="Checkout"
-          onPress={() => console.log('')}
+          onPress={() => navigation.navigate('Payment')}
         />
       </Pressable>
     </SafeAreaView>
