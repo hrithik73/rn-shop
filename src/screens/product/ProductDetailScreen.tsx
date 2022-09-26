@@ -42,9 +42,17 @@ const ProductDetailScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Icon name="left" size={22} />
+        <Icon name="left" size={22} onPress={() => navigation.goBack()} />
         <Text style={styles.heading}>Product detail</Text>
-        <Icon name="shoppingcart" size={25} />
+        <Icon
+          name="shoppingcart"
+          size={25}
+          onPress={() =>
+            navigation.navigate('Cart', {
+              screen: 'CartScreen',
+            })
+          }
+        />
       </View>
       <Image style={styles.heroImg} source={{ uri: product.imgUrl }} />
       <Heading numberOfLines={1} customStyles={styles.productTitle}>
@@ -92,6 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   heroImg: {
+    marginTop: 50,
     resizeMode: 'contain',
     height: '50%',
     width: '100%',

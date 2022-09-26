@@ -17,6 +17,7 @@ import {
   RootStackType,
 } from '../types/NavigationTypes';
 import PaymentScreen from '../screens/PaymentScreen';
+import { useAppSelector } from '../redux/store';
 
 const Tab = createBottomTabNavigator<RootStackType>();
 const Home = createNativeStackNavigator<HomeStackType>();
@@ -27,7 +28,7 @@ const HomeNavigator = () => {
     <Home.Navigator
       screenOptions={{
         headerBackTitleVisible: false,
-        // headerShown: false,
+        headerShown: false,
       }}>
       <Home.Screen
         name="HomeScreen"
@@ -62,13 +63,20 @@ const CartNavigator = () => {
           // headerShown: false,
         }
       }>
-      <Cart.Screen name="CartScreen" component={CartScreen} />
+      <Cart.Screen
+        name="CartScreen"
+        component={CartScreen}
+        // options={{ tabBarBadge: 3 }}
+      />
       <Cart.Screen name="ProductDetails" component={ProductDetailScreen} />
       <Cart.Screen name="Payment" component={PaymentScreen} />
     </Cart.Navigator>
   );
 };
 const MainNavigator = () => {
+  const { cart } = useAppSelector(state => state.user);
+  console.log(cart.length);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -100,6 +108,11 @@ const MainNavigator = () => {
         name="Cart"
         component={CartNavigator}
         options={{
+          tabBarBadge: cart.length,
+          tabBarBadgeStyle: {
+            color: 'white',
+            backgroundColor: colors.secondary,
+          },
           tabBarIcon: ({ color, size }) => (
             <Icon name="shoppingcart" color={color} size={size} />
           ),

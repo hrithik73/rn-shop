@@ -14,6 +14,7 @@ import AppButton from '../../components/Button';
 
 import CartCard from '../../components/CartCard';
 import { CURRENCY_SIGNS } from '../../constants/AppConstants';
+import colors from '../../constants/colors';
 import { useAppSelector } from '../../redux/store';
 import { CartStackNavigatorProps } from '../../types/NavigationTypes';
 
@@ -33,6 +34,9 @@ const CartScreen = () => {
       {Array.isArray(cartData) && cartData.length ? (
         <FlatList
           data={cartData}
+          style={{
+            marginBottom: 100,
+          }}
           renderItem={({ item }) => (
             <CartCard productData={item} key={item.catID} />
           )}
@@ -50,8 +54,14 @@ const CartScreen = () => {
       )}
       <Pressable
         style={{
+          position: 'absolute',
+          bottom: 0,
+          backgroundColor: colors.white,
+          borderTopRightRadius: 30,
+          borderTopLeftRadius: 30,
+          width: '100%',
           flex: 1,
-          height: 200,
+          height: 100,
           justifyContent: 'space-around',
           alignItems: 'center',
           flexDirection: 'row',

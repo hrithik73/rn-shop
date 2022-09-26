@@ -13,6 +13,8 @@ An ecommerce app to polish react native skills
 - Redux thunk middleware for API
 - Remote config
 - Lazy Loading
+- Stripe for payment gateway
+- Algolia for search index
 
 ### Tools and Libraries :hammer:
 

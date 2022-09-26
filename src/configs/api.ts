@@ -11,7 +11,7 @@ export const getBaseURL = () => {
   if (__DEV__) {
     // Todo:- Set url according to OS
     return Platform.OS === 'android'
-      ? 'http://192.168.42.195:3000'
+      ? 'http://192.168.42.185:3000'
       : DEV_BASE_URL;
   }
   return PROD_BASE_URL;

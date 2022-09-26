@@ -60,7 +60,9 @@ export default (state = initialState, action: any) => {
         ...state,
         cart: updatedCart,
         totalAmount:
-          state.totalAmount >= 0 ? state.totalAmount - parseInt(price, 10) : 0,
+          state.totalAmount >= 0
+            ? state.totalAmount - parseInt(price as unknown as string, 10)
+            : 0,
       };
 
     default: {

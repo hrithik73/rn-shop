@@ -1,25 +1,26 @@
-import Feather from 'react-native-vector-icons/Feather';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-
-import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'react-native';
-import { Provider } from 'react-redux';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { PersistGate } from 'redux-persist/integration/react';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import React, { useEffect, useState } from 'react';
+import { InstantSearch } from 'react-instantsearch-hooks';
+import { StatusBar } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
+import { ALGOLIA_INDEX_NAME, searchClient } from './src/configs/algolia';
+import useApi from './src/hooks/useApi';
 import usePushNotification from './src/hooks/usePushNotification';
 import AppNavigator from './src/navigators';
 import { persistor, store } from './src/redux/store';
-import useApi from './src/hooks/useApi';
 
 const App = () => {
   const [publishableKey, sestPublishableKey] = useState('');
   const { getPublishableKey } = useApi();
-  // Loading fonts for Vector icons in IOS
-  // TODO:- Need a Permanent fix
 
   useEffect(() => {
+    // Loading fonts for Vector icons in IOS
+    // TODO:- Need a Permanent fix
     Feather.loadFont();
     AntDesign.loadFont();
 
@@ -27,6 +28,7 @@ const App = () => {
       const key = await getPublishableKey();
       sestPublishableKey(key);
     };
+
     getKey();
   }, [getPublishableKey]);
 
@@ -40,7 +42,11 @@ const App = () => {
           <StripeProvider
             publishableKey={publishableKey}
             merchantIdentifier="merchant.identifier">
-            <AppNavigator />
+            <InstantSearch
+              searchClient={searchClient}
+              indexName={ALGOLIA_INDEX_NAME}>
+              <AppNavigator />
+            </InstantSearch>
           </StripeProvider>
         </PersistGate>
       </PaperProvider>

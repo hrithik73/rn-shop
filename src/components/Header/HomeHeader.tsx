@@ -5,32 +5,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import colors from '../../constants/colors';
-import useFirestore from '../../hooks/useFirestore';
-import { ProductType } from '../../types';
 import { HomeStackNavigationProps } from '../../types/NavigationTypes';
 
 // Todo:- Implement Search Functionality better
 const HomeHeader = () => {
-  const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const navigation = useNavigation<HomeStackNavigationProps>();
-
-  const { getProductByName } = useFirestore();
-
-  const searchInDB = async (newText: string) => {
-    const temp = await getProductByName(newText);
-    setSearchedProducts(temp);
-  };
 
   const handleChange = (newText: React.SetStateAction<string>) => {
     setSearchTerm(newText);
   };
 
   const submitHandler = () => {
-    searchInDB(searchTerm);
-    navigation.navigate('Search', {
-      searchedProduct: searchedProducts,
-    });
+    navigation.navigate('Search');
   };
 
   return (
@@ -55,7 +42,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.secondary,
+    // backgroundColor: colors.secondary,
     height: 120,
   },
   input: {

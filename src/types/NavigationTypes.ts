@@ -1,7 +1,6 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ProductType } from './index';
 
 export type RootStackType = {
   Home: NavigatorScreenParams<HomeStackType>;
@@ -21,9 +20,7 @@ export type HomeStackType = {
   Product: { catName: string; catID: string };
   ProductDetails: { productID: string };
   CartScreen: undefined;
-  Search: {
-    searchedProduct: ProductType[];
-  };
+  Search: undefined;
 };
 
 export type AuthStackType = {
