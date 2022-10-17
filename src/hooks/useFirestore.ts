@@ -1,5 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
-import { CartItemProps, ProductType } from '../types';
+import { CartItemProps, ProductType } from '@src/types';
 
 /**
  * All the types are defined here

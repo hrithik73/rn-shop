@@ -1,17 +1,18 @@
 import React, { useRef, useState } from 'react';
+import { useInfiniteHits, useSearchBox } from 'react-instantsearch-hooks';
 import {
-  StyleSheet,
-  View,
-  TextInput,
-  SafeAreaView,
   FlatList,
-  Text,
   Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
-import { useSearchBox, useInfiniteHits } from 'react-instantsearch-hooks';
-import ProductCard from '../../components/ProductCard';
 import Icon from 'react-native-vector-icons/AntDesign';
-import colors from '../../constants/colors';
+
+import ProductCard from '@src/components/ProductCard';
+import colors from '@src/constants/colors';
 
 export default function SearchBox() {
   const { query, refine } = useSearchBox();

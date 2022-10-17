@@ -4,20 +4,19 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import AppButton from '../../components/Button';
-import Heading from '../../components/Heading';
-import { CURRENCY_SIGNS } from '../../constants/AppConstants';
-import colors from '../../constants/colors';
-import useFirestore from '../../hooks/useFirestore';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { addToCart } from '../../redux/thunk/cartThunk';
-import { ProductType } from '../../types';
-
+import AppButton from '@src/components/Button';
+import Heading from '@src/components/Heading';
+import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
+import colors from '@src/constants/colors';
+import useFirestore from '@src/hooks/useFirestore';
+import { useAppDispatch, useAppSelector } from '@src/redux/store';
+import { addToCart } from '@src/redux/thunk/cartThunk';
+import { ProductType } from '@src/types';
 import {
   HomeStackType,
   RootStackNavigatorProps,
-} from '../../types/NavigationTypes';
-import { numberToCommaSeperatedPrice } from '../../utils/helperFunctions';
+} from '@src/types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 

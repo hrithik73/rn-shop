@@ -1,4 +1,4 @@
-import { api, getBaseURL } from '../configs/api';
+import { api, getBaseURL } from '@src/configs/api';
 
 // A general perpose hook for all the api calling
 const useApi = () => {

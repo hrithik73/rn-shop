@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { CURRENCY_SIGNS } from '../constants/AppConstants';
 
-import colors from '../constants/colors';
-import { HomeStackNavigationProps } from '../types/NavigationTypes';
-import { numberToCommaSeperatedPrice } from '../utils/helperFunctions';
+import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
+import colors from '@src/constants/colors';
+import { HomeStackNavigationProps } from '@src/types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
 
 const ProductCard = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();

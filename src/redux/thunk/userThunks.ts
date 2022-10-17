@@ -28,6 +28,7 @@ export const logInUser =
         console.log('User Logged-In Successfully');
       })
       .catch(error => {
+        // Todo:- Add case for user doesn't exits
         // console.log('Geerting error', error.code);
         if (error.code === 'auth/invalid-email') {
           setError('email', {

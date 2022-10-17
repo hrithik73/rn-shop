@@ -1,6 +1,11 @@
-/* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native';
-import Lottie from 'lottie-react-native';
+import AppButton from '@src/components/Button';
+import CartCard from '@src/components/CartCard';
+import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
+import colors from '@src/constants/colors';
+import { useAppSelector } from '@src/redux/store';
+import { CartStackNavigatorProps } from '@src/types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
 import React, { useState } from 'react';
 import {
   Button,
@@ -12,14 +17,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import AppButton from '../../components/Button';
-
-import CartCard from '../../components/CartCard';
-import { CURRENCY_SIGNS } from '../../constants/AppConstants';
-import colors from '../../constants/colors';
-import { useAppSelector } from '../../redux/store';
-import { CartStackNavigatorProps } from '../../types/NavigationTypes';
-import { numberToCommaSeperatedPrice } from '../../utils/helperFunctions';
 
 const CartScreen = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);

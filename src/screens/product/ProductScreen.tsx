@@ -2,15 +2,15 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 
-import Heading from '../../components/Heading';
-import Loading from '../../components/Loading';
-import ProductCard from '../../components/ProductCard';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+import Heading from '@src/components/Heading';
+import Loading from '@src/components/Loading';
+import ProductCard from '@src/components/ProductCard';
+import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import {
   getInitialProducts,
   updateProductsList,
-} from '../../redux/thunk/productsThunk';
-import { HomeStackType } from '../../types/NavigationTypes';
+} from '@src/redux/thunk/productsThunk';
+import { HomeStackType } from '@src/types/NavigationTypes';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'Product'>;
 

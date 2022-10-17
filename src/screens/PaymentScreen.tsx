@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert } from 'react-native';
-import { CardField, useConfirmPayment } from '@stripe/stripe-react-native';
-import useApi from '../hooks/useApi';
-import { CartStackType } from '../types/NavigationTypes';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Alert, Button, StyleSheet, View } from 'react-native';
+import { CardField, useConfirmPayment } from '@stripe/stripe-react-native';
+
+import { CartStackType } from '@src/types/NavigationTypes';
+import useApi from '@src/hooks/useApi';
 
 type CartScreenRouteProps = RouteProp<CartStackType, 'Payment'>;
 

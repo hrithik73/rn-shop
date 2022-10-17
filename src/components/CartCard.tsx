@@ -2,18 +2,18 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { CURRENCY_SIGNS } from '../constants/AppConstants';
-import colors from '../constants/colors';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import {
-  incrementProductQnty,
-  decrementProductQnty,
-} from '../redux/thunk/cartThunk';
 
-import { removeFromCart } from '../redux/thunk/userThunks';
-import { ProductType } from '../types';
-import { HomeStackNavigationProps } from '../types/NavigationTypes';
-import { numberToCommaSeperatedPrice } from '../utils/helperFunctions';
+import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
+import colors from '@src/constants/colors';
+import { useAppDispatch, useAppSelector } from '@src/redux/store';
+import {
+  decrementProductQnty,
+  incrementProductQnty,
+} from '@src/redux/thunk/cartThunk';
+import { removeFromCart } from '@src/redux/thunk/userThunks';
+import { ProductType } from '@src/types';
+import { HomeStackNavigationProps } from '@src/types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
 
 type cartProductsType = {
   qnty: number;

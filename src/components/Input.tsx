@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import colors from '../constants/colors';
+import colors from '@src/constants/colors';
 
 type AppTextInputProps = {
   control: any;

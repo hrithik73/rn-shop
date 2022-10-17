@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import colors from '../constants/colors';
+import colors from '@src/constants/colors';
 
 type ButtonProps = {
   text: string;

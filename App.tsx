@@ -8,11 +8,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { ALGOLIA_INDEX_NAME, searchClient } from './src/configs/algolia';
-import useApi from './src/hooks/useApi';
-import usePushNotification from './src/hooks/usePushNotification';
-import AppNavigator from './src/navigators';
-import { persistor, store } from './src/redux/store';
+import { ALGOLIA_INDEX_NAME, searchClient } from '@src/configs/algolia';
+import useApi from '@src/hooks/useApi';
+import usePushNotification from '@src/hooks/usePushNotification';
+import AppNavigator from '@src/navigators';
+import { persistor, store } from '@src/redux/store';
 
 const App = () => {
   const [publishableKey, sestPublishableKey] = useState('');

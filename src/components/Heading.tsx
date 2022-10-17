@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextProps, TextStyle } from 'react-native';
-import colors from '../constants/colors';
+import colors from '@src/constants/colors';
 
 type HeadingProp =
   | {

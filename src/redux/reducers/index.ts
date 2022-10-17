@@ -7,12 +7,14 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-import user from './user';
-import products from './products';
-import cart from './cart';
+import cart from '@src/redux/reducers/cart';
+import products from '@src/redux/reducers/products';
+import user from '@src/redux/reducers/user';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   user: persistReducer(persistConfig, user),
   cart: persistReducer(persistConfig, cart),
   products,
 });
+
+export default rootReducer;

@@ -4,7 +4,7 @@ import { persistStore } from 'redux-persist';
 import * as thunkMiddleware from 'redux-thunk';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import reducers from '../reducers';
+import reducers from '@src/redux/reducers';
 
 let middlewares = [thunkMiddleware.default];
 

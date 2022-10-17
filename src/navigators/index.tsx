@@ -4,9 +4,9 @@ import LottieView from 'lottie-react-native';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 
-import { RootStackType } from '../types/NavigationTypes';
-import AuthNavigator from './AuthNavigator';
-import MainNavigator from './MainNavigator';
+import AuthNavigator from '@src/navigators/AuthNavigator';
+import MainNavigator from '@src/navigators/MainNavigator';
+import { RootStackType } from '@src/types/NavigationTypes';
 
 const linking: LinkingOptions<RootStackType> = {
   prefixes: ['rnshop://'],

@@ -1,10 +1,10 @@
-import { ProductType } from '../../types';
+import { ProductType } from '@src/types';
 import {
   ADD_TO_CART,
   DECREASE_QNTY,
   INCREASE_QNTY,
   REMOVE_FROM_CART,
-} from '../constants';
+} from '@src/redux/constants';
 
 type cartProductsType = {
   qnty: number;

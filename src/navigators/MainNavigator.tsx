@@ -3,21 +3,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import Header from '../components/Header';
-import colors from '../constants/colors';
-import CartScreen from '../screens/main/CartScreen';
-import HomeScreen from '../screens/main/HomeScreen';
-import UserScreen from '../screens/main/UserScreen';
-import ProductDetailScreen from '../screens/product/ProductDetailScreen';
-import ProductScreen from '../screens/product/ProductScreen';
-import SearchScreen from '../screens/main/SearchScreen';
+import Header from '@src/components/Header';
+import colors from '@src/constants/colors';
+import CartScreen from '@src/screens/main/CartScreen';
+import HomeScreen from '@src/screens/main/HomeScreen';
+import UserScreen from '@src/screens/main/UserScreen';
+import ProductDetailScreen from '@src/screens/product/ProductDetailScreen';
+import ProductScreen from '@src/screens/product/ProductScreen';
+import SearchScreen from '@src/screens/main/SearchScreen';
 import {
   CartStackType,
   HomeStackType,
   RootStackType,
-} from '../types/NavigationTypes';
-import PaymentScreen from '../screens/PaymentScreen';
-import { useAppSelector } from '../redux/store';
+} from '@src/types/NavigationTypes';
+import PaymentScreen from '@src/screens/PaymentScreen';
+import { useAppSelector } from '@src/redux/store';
 
 const Tab = createBottomTabNavigator<RootStackType>();
 const Home = createNativeStackNavigator<HomeStackType>();

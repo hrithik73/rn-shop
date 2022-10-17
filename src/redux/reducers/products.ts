@@ -1,11 +1,11 @@
-import { ProductInitStateType } from '../../types';
+import { ProductInitStateType } from '@src/types';
 import {
   FETCHING_PRODUCTS,
   SET_PRODUCTS,
   UPDATE_PRODUCTS,
   SET_CATEGORIES,
   FETCHING_CATEGORIES,
-} from '../constants';
+} from '@src/redux/constants';
 
 const initialState: ProductInitStateType = {
   products: [],

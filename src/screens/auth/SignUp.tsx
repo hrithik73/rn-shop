@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-import AppButton from '../../components/Button';
-import AppTextInput from '../../components/Input';
-import colors from '../../constants/colors';
-import globalStyles from '../../constants/globalStyles';
-import { useAppDispatch } from '../../redux/store';
-import { signUpuser } from '../../redux/thunk/userThunks';
+import AppButton from '@src/components/Button';
+import AppTextInput from '@src/components/Input';
+import colors from '@src/constants/colors';
+import globalStyles from '@src/constants/globalStyles';
+import { useAppDispatch } from '@src/redux/store';
+import { signUpuser } from '@src/redux/thunk/userThunks';
 
 type HomeStackNavigationProps = NativeStackNavigationProp<any>;
 

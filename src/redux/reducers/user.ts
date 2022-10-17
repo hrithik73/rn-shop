@@ -1,5 +1,5 @@
-import { UserInitStateType } from '../../types';
-import { USER_LOGGED_IN, USER_SIGNED_OUT } from '../constants';
+import { USER_LOGGED_IN, USER_SIGNED_OUT } from '@src/redux/constants';
+import { UserInitStateType } from '@src/types';
 
 const initialState: UserInitStateType = {
   isLoggedIn: false,

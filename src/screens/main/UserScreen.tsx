@@ -1,17 +1,15 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
-import { Modal } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign';
 import auth from '@react-native-firebase/auth';
-import remoteConfig from '@react-native-firebase/remote-config';
-import AppButton from '../../components/Button';
-import PushNotification from 'react-native-push-notification';
 import crashlytics from '@react-native-firebase/crashlytics';
 import firestore from '@react-native-firebase/firestore';
-import colors from '../../constants/colors';
-import { Portal } from 'react-native-paper';
-import { useAppSelector } from '../../redux/store';
+import remoteConfig from '@react-native-firebase/remote-config';
+import AppButton from '@src/components/Button';
+import colors from '@src/constants/colors';
+import { useAppSelector } from '@src/redux/store';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Modal, Portal } from 'react-native-paper';
+import PushNotification from 'react-native-push-notification';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const showNotification = () => {
   PushNotification.localNotification({

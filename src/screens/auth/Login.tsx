@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-import AppButton from '../../components/Button';
-import AppTextInput from '../../components/Input';
-import colors from '../../constants/colors';
-import globalStyles from '../../constants/globalStyles';
-import { useAppDispatch } from '../../redux/store';
-import { logInUser } from '../../redux/thunk/userThunks';
-import { AuthStackNavigatorProps } from '../../types/NavigationTypes';
+import AppButton from '@src/components/Button';
+import AppTextInput from '@src/components/Input';
+import colors from '@src/constants/colors';
+import globalStyles from '@src/constants/globalStyles';
+import { useAppDispatch } from '@src/redux/store';
+import { logInUser } from '@src/redux/thunk/userThunks';
+import { AuthStackNavigatorProps } from '@src/types/NavigationTypes';
 
 const Login = () => {
   //Todo:- Writing a better logic for this
