@@ -68,14 +68,17 @@ const CartNavigator = () => {
         component={CartScreen}
         // options={{ tabBarBadge: 3 }}
       />
-      <Cart.Screen name="ProductDetails" component={ProductDetailScreen} />
+      <Cart.Screen
+        name="ProductDetails"
+        component={ProductDetailScreen}
+        options={{ headerShown: false }}
+      />
       <Cart.Screen name="Payment" component={PaymentScreen} />
     </Cart.Navigator>
   );
 };
 const MainNavigator = () => {
-  const { cart } = useAppSelector(state => state.user);
-  console.log(cart.length);
+  const { cartProducts } = useAppSelector(state => state.cart);
 
   return (
     <Tab.Navigator
@@ -108,7 +111,7 @@ const MainNavigator = () => {
         name="Cart"
         component={CartNavigator}
         options={{
-          tabBarBadge: cart.length,
+          tabBarBadge: cartProducts.length,
           tabBarBadgeStyle: {
             color: 'white',
             backgroundColor: colors.secondary,

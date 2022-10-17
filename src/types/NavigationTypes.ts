@@ -12,7 +12,7 @@ export type RootStackType = {
 export type CartStackType = {
   CartScreen: undefined;
   ProductDetails: undefined;
-  Payment: undefined;
+  Payment: { totalPrice: number };
 };
 
 export type HomeStackType = {

@@ -1,5 +1,5 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -8,12 +8,16 @@ import AppButton from '../../components/Button';
 import Heading from '../../components/Heading';
 import { CURRENCY_SIGNS } from '../../constants/AppConstants';
 import colors from '../../constants/colors';
+import useFirestore from '../../hooks/useFirestore';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { addToCart } from '../../redux/thunk/userThunks';
+import { addToCart } from '../../redux/thunk/cartThunk';
+import { ProductType } from '../../types';
+
 import {
   HomeStackType,
   RootStackNavigatorProps,
 } from '../../types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '../../utils/helperFunctions';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 
@@ -21,13 +25,30 @@ const ProductDetailScreen = () => {
   const route = useRoute<ProductScreenRouteProp>();
   const navigation = useNavigation<RootStackNavigatorProps>();
 
+  const { getProductByProductId } = useFirestore();
+
   const dispatch = useAppDispatch();
-  const { products } = useAppSelector(state => state.products);
   const { userId } = useAppSelector(state => state.user.personalDetails);
 
-  const product = products.find(
-    (prod: any) => prod.productID === route.params.productID,
-  );
+  const [product, setProduct] = useState<ProductType>({
+    catID: '',
+    deliveryDate: '',
+    imgUrl: '',
+    isFreeDelivery: false,
+    oldPrice: '',
+    price: '',
+    productID: '',
+    rating: 1,
+    title: '',
+  });
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const prod = await getProductByProductId(route.params.productID);
+      setProduct(prod);
+    };
+    getProduct();
+  }, [getProductByProductId, route.params.productID]);
 
   const addToCartHandler = () => {
     dispatch(
@@ -73,7 +94,7 @@ const ProductDetailScreen = () => {
       <View style={styles.priceCard}>
         <Text style={styles.priceTxt}>
           {CURRENCY_SIGNS.rupees}
-          {product.price}
+          {numberToCommaSeperatedPrice(product.price)}
         </Text>
         <AppButton
           text="Add to Cart"

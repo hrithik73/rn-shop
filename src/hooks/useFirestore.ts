@@ -102,23 +102,6 @@ const useFirestore = () => {
     return product;
   };
 
-  const getProductByName = async (name: string) => {
-    let productsByName: ProductType[] = [];
-
-    await firestore()
-      .collection('products')
-      .orderBy('title')
-      .startAt(name)
-      .endAt(name + '\uf8ff')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          productsByName.push(doc.data() as ProductType);
-        });
-      });
-    return productsByName;
-  };
-
   // Add user to DB after successfully signUP
   const addUserToDB = async ({ userID, name, email }: AddUserToDBProps) => {
     await firestore()
@@ -144,15 +127,14 @@ const useFirestore = () => {
     userId,
     product,
   }: AddToCartInFireStoreProps) => {
+    //
     console.log('Calling firebase ------->', { userId }, { product });
 
     await firestore()
-      .collection('users')
-      .doc(userId)
       .collection('cart')
-      .doc(product.id)
+      .doc(userId)
       .set({
-        productData: product,
+        ...product,
         qnty: 1,
       })
       .then(() => {
@@ -214,7 +196,6 @@ const useFirestore = () => {
     addToCartInFireStore,
     getCartData,
     removeFromCartFireStore,
-    getProductByName,
   };
 };
 

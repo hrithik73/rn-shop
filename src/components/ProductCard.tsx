@@ -6,6 +6,7 @@ import { CURRENCY_SIGNS } from '../constants/AppConstants';
 
 import colors from '../constants/colors';
 import { HomeStackNavigationProps } from '../types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '../utils/helperFunctions';
 
 const ProductCard = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
@@ -30,7 +31,7 @@ const ProductCard = ({ item }: any) => {
         <View style={styles.pricesContainer}>
           <Text style={styles.price}>
             {CURRENCY_SIGNS.rupees}
-            {item.price}
+            {numberToCommaSeperatedPrice(item.price)}
           </Text>
           <Text style={styles.oldPrice}>
             {CURRENCY_SIGNS.rupees}

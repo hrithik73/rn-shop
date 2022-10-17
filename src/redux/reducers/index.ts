@@ -9,8 +9,10 @@ const persistConfig = {
 
 import user from './user';
 import products from './products';
+import cart from './cart';
 
 export default combineReducers({
   user: persistReducer(persistConfig, user),
+  cart: persistReducer(persistConfig, cart),
   products,
 });

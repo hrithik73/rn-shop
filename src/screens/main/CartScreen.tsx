@@ -1,7 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native';
+import Lottie from 'lottie-react-native';
 import React, { useState } from 'react';
 import {
+  Button,
   FlatList,
   Pressable,
   RefreshControl,
@@ -17,16 +19,24 @@ import { CURRENCY_SIGNS } from '../../constants/AppConstants';
 import colors from '../../constants/colors';
 import { useAppSelector } from '../../redux/store';
 import { CartStackNavigatorProps } from '../../types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '../../utils/helperFunctions';
 
 const CartScreen = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const navigation = useNavigation<CartStackNavigatorProps>();
-  const { cart: cartData, totalAmount } = useAppSelector(state => state.user);
+  const { cartProducts: cartData } = useAppSelector(state => state.cart);
 
   // TODO:- Add refresh
   const onRefreshHandler = () => {
     setRefreshing(true);
     setRefreshing(false);
+  };
+
+  const getTotalPrice = () => {
+    return cartData.reduce(
+      (total, item) => total + parseInt(item.price, 10) * item.qnty,
+      0,
+    );
   };
 
   return (
@@ -50,33 +60,33 @@ const CartScreen = () => {
       ) : (
         <View style={styles.heading}>
           <Text>Cart is Empty, Please Add something</Text>
+          {/* <Lottie
+            source={require('../../assets/67163-empty-cart.json')}
+            autoPlay
+            // loop
+          /> */}
+          <Button
+            title="Go back to Shoping"
+            onPress={() => navigation.navigate('ProductDetails')}
+          />
         </View>
       )}
-      <Pressable
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          backgroundColor: colors.white,
-          borderTopRightRadius: 30,
-          borderTopLeftRadius: 30,
-          width: '100%',
-          flex: 1,
-          height: 100,
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          flexDirection: 'row',
-        }}>
+      <Pressable style={styles.checkoutCard}>
         <View>
           <Text>Total </Text>
-          <Text>
+          <Text style={styles.totalPrice}>
             {CURRENCY_SIGNS.rupees}
-            {totalAmount}
+            {numberToCommaSeperatedPrice(getTotalPrice())}
           </Text>
         </View>
         <AppButton
-          customStyle={{ width: '50%', marginHorizontal: 0, margin: 0 }}
+          customStyle={styles.paymentBtn}
           text="Checkout"
-          onPress={() => navigation.navigate('Payment')}
+          onPress={() =>
+            navigation.navigate('Payment', {
+              totalPrice: getTotalPrice(),
+            })
+          }
         />
       </Pressable>
     </SafeAreaView>
@@ -92,6 +102,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  checkoutCard: {
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: colors.white,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    width: '100%',
+    flex: 1,
+    height: 100,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  paymentBtn: {
+    width: '50%',
+    marginHorizontal: 0,
+    margin: 0,
+  },
+  totalPrice: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 

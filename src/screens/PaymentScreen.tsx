@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Button, Alert } from 'react-native';
 import { CardField, useConfirmPayment } from '@stripe/stripe-react-native';
 import useApi from '../hooks/useApi';
-import { useAppSelector } from '../redux/store';
+import { CartStackType } from '../types/NavigationTypes';
+import { RouteProp, useRoute } from '@react-navigation/native';
 
-const StripeApp = () => {
+type CartScreenRouteProps = RouteProp<CartStackType, 'Payment'>;
+
+const PaymentScreen = () => {
   const [cardDetails, setCardDetails] = useState({});
-  const { totalAmount } = useAppSelector(state => state.user);
   const { confirmPayment, loading } = useConfirmPayment();
   const { fetchPaymentIntentClientSecret } = useApi();
+  const route = useRoute<CartScreenRouteProps>();
 
   const handlePayPress = async () => {
     //1.Gather the customer's billing information (e.g., email)
@@ -20,8 +23,9 @@ const StripeApp = () => {
     //2.Fetch the intent client secret from the backend
     try {
       const { clientSecret, error } = await fetchPaymentIntentClientSecret(
-        totalAmount,
+        route.params.totalPrice,
       );
+      // route.params,
       //2. confirm the payment
       if (error) {
         console.log('Unable to process payment');
@@ -60,7 +64,7 @@ const StripeApp = () => {
     </View>
   );
 };
-export default StripeApp;
+export default PaymentScreen;
 
 const styles = StyleSheet.create({
   container: {

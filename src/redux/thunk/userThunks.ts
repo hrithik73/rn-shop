@@ -1,10 +1,9 @@
 import auth from '@react-native-firebase/auth';
 import { FieldError } from 'react-hook-form';
 import useFirestore from '../../hooks/useFirestore';
-import { ProductType } from '../../types';
-import { ADD_TO_CART, REMOVE_FROM_CART, USER_LOGGED_IN } from '../constants';
-import { TypedDispatch } from '../store';
 import { getCategories } from './productsThunk';
+import { REMOVE_FROM_CART, USER_LOGGED_IN } from '../constants';
+import { TypedDispatch } from '../store';
 
 type LogInProps = {
   email: string;
@@ -19,16 +18,6 @@ type SignUpProps = {
   setError: (name: string, error: FieldError) => void;
 };
 
-type AddToCartProps = {
-  product: ProductType;
-  userId: string;
-};
-
-type RemoveFromCartProps = {
-  productID: string;
-  userID: string;
-};
-
 // Thunk for Login the user
 export const logInUser =
   ({ email, pass, setError }: LogInProps) =>
@@ -37,10 +26,6 @@ export const logInUser =
       .signInWithEmailAndPassword(email, pass)
       .then(async ({ user }) => {
         console.log('User Logged-In Successfully');
-        dispatch({
-          type: USER_LOGGED_IN,
-          payload: { email: email, userId: user.uid, name: user.displayName },
-        });
       })
       .catch(error => {
         // console.log('Geerting error', error.code);
@@ -108,13 +93,17 @@ export const signUpuser =
     dispatch(getCategories);
   };
 
-export const addToCart =
-  ({ product, userId }: AddToCartProps) =>
-  (dispatch: any) => {
-    const { addToCartInFireStore } = useFirestore();
-    addToCartInFireStore({ product, userId });
-    dispatch({ type: ADD_TO_CART, payload: product });
-  };
+// export const addToCart =
+//   ({ product, userId }: AddToCartProps) =>
+//   (dispatch: any) => {
+//     const { addToCartInFireStore } = useFirestore();
+//     addToCartInFireStore({ product, userId });
+//     dispatch({ type: ADD_TO_CART, payload: product });
+//   };
+type RemoveFromCartProps = {
+  productID: string;
+  userID: string;
+};
 
 export const removeFromCart =
   ({ productID, userID }: RemoveFromCartProps) =>
