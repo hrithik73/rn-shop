@@ -6,5 +6,6 @@ const colors = {
   yellow: '#FBD816',
   white: '#ffff',
   red: '#FF0000',
+  textColor: '#000000',
 };
 export default colors;

@@ -5,7 +5,6 @@ const useApi = () => {
   // Get the Publishable key from Backend
   const getPublishableKey = async () => {
     const res = await api.get('/stripe-key');
-    console.log(res.data);
     return res.data.publishableKey;
   };
 
@@ -20,8 +19,8 @@ const useApi = () => {
     });
 
     const { clientSecret, error } = await response.json();
-    console.log('Client Secrete', clientSecret);
-    console.log('Error', error);
+    // console.log('Client Secrete', clientSecret);
+    // console.log('Error', error);
 
     return { clientSecret, error };
   };

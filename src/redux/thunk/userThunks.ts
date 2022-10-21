@@ -1,9 +1,10 @@
 import auth from '@react-native-firebase/auth';
 import { FieldError } from 'react-hook-form';
-import useFirestore from '../../hooks/useFirestore';
-import { getCategories } from './productsThunk';
+
+import useFirestore from '@src/hooks/useFirestore';
 import { REMOVE_FROM_CART, USER_LOGGED_IN } from '../constants';
-import { TypedDispatch } from '../store';
+import { getCategories } from './productsThunk';
+import { TypedDispatch } from '@src/redux/store';
 
 type LogInProps = {
   email: string;
@@ -22,14 +23,24 @@ type SignUpProps = {
 export const logInUser =
   ({ email, pass, setError }: LogInProps) =>
   async (dispatch: any) => {
+    console.log('Inside thunk');
     auth()
       .signInWithEmailAndPassword(email, pass)
       .then(async ({ user }) => {
         console.log('User Logged-In Successfully');
+        dispatch({
+          type: USER_LOGGED_IN,
+          payload: {
+            email: user.email,
+            useId: user.uid,
+            name: user.displayName,
+          },
+        });
       })
       .catch(error => {
         // Todo:- Add case for user doesn't exits
         // console.log('Geerting error', error.code);
+        console.log('error====>', error);
         if (error.code === 'auth/invalid-email') {
           setError('email', {
             type: 'custom',
@@ -94,13 +105,6 @@ export const signUpuser =
     dispatch(getCategories);
   };
 
-// export const addToCart =
-//   ({ product, userId }: AddToCartProps) =>
-//   (dispatch: any) => {
-//     const { addToCartInFireStore } = useFirestore();
-//     addToCartInFireStore({ product, userId });
-//     dispatch({ type: ADD_TO_CART, payload: product });
-//   };
 type RemoveFromCartProps = {
   productID: string;
   userID: string;

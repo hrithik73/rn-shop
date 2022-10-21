@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,6 +9,7 @@ import { HomeStackNavigationProps } from '@src/types/NavigationTypes';
 import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import { getCategories } from '@src/redux/thunk/productsThunk';
 import Heading from '@src/components/Heading';
+import styles from './styles';
 
 const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
@@ -84,28 +85,4 @@ const CategoriesScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  categoriesItemContainer: {
-    margin: 20,
-  },
-  heading: {
-    fontWeight: '400',
-    fontSize: 15,
-    textAlign: 'center',
-    marginVertical: 5,
-  },
-  img: {
-    height: 150,
-    width: 150,
-    borderRadius: 10,
-  },
-  shimmerContainer: {
-    height: 150,
-    width: 150,
-    borderRadius: 10,
-  },
-});
 export default CategoriesScreen;

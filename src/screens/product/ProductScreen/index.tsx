@@ -11,6 +11,7 @@ import {
   updateProductsList,
 } from '@src/redux/thunk/productsThunk';
 import { HomeStackType } from '@src/types/NavigationTypes';
+import styles from './styles';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'Product'>;
 
@@ -70,19 +71,5 @@ const ProductScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  input: {
-    paddingHorizontal: 15,
-  },
-  loader: {
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default ProductScreen;

@@ -16,7 +16,7 @@ import {
   HomeStackType,
   RootStackType,
 } from '@src/types/NavigationTypes';
-import PaymentScreen from '@src/screens/PaymentScreen';
+import PaymentScreen from '@src/screens/Paymentscreen/PaymentScreen';
 import { useAppSelector } from '@src/redux/store';
 
 const Tab = createBottomTabNavigator<RootStackType>();
@@ -66,7 +66,7 @@ const CartNavigator = () => {
       <Cart.Screen
         name="CartScreen"
         component={CartScreen}
-        // options={{ tabBarBadge: 3 }}
+        options={{ headerShown: false }}
       />
       <Cart.Screen
         name="ProductDetails"

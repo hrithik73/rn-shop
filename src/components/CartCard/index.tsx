@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
@@ -14,6 +14,7 @@ import { removeFromCart } from '@src/redux/thunk/userThunks';
 import { ProductType } from '@src/types';
 import { HomeStackNavigationProps } from '@src/types/NavigationTypes';
 import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
+import styles from './styles';
 
 type cartProductsType = {
   qnty: number;
@@ -80,86 +81,28 @@ const CartCard = ({ productData }: CartItemProps) => {
             </Pressable>
           ) : (
             <Pressable style={styles.plusIcon}>
-              <Icon name="minus" size={20} onPress={decrementQntyHandler} />
+              <Icon
+                name="minus"
+                color={colors.black}
+                size={20}
+                onPress={decrementQntyHandler}
+              />
             </Pressable>
           )}
 
           <Text style={styles.qntyTxt}>{productData.qnty}</Text>
           <Pressable style={styles.plusIcon}>
-            <Icon name="plus" size={20} onPress={incrementQntyHandler} />
+            <Icon
+              name="plus"
+              color={colors.black}
+              size={20}
+              onPress={incrementQntyHandler}
+            />
           </Pressable>
         </View>
       </View>
     </>
   );
 };
-const styles = StyleSheet.create({
-  bottomTrayContainer: {
-    height: 40,
-    flexDirection: 'row',
-    alignSelf: 'center',
-    alignItems: 'center',
-
-    borderWidth: 0.2,
-    borderRadius: 10,
-    borderColor: 'gray',
-    margin: 10,
-  },
-  topContainer: {
-    flexDirection: 'row',
-  },
-  container: {
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    margin: 5,
-    paddingTop: 5,
-    borderRadius: 10,
-  },
-  img: {
-    resizeMode: 'contain',
-    height: 150,
-    width: 150,
-  },
-  title: {
-    fontWeight: '500',
-    fontSize: 14,
-  },
-  price: {
-    fontWeight: 'bold',
-    paddingTop: 10,
-    fontSize: 20,
-  },
-  plusIcon: {
-    width: 40,
-
-    alignItems: 'center',
-  },
-  productQuantity: {
-    width: 40,
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  deleteIcon: {
-    width: 40,
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'black',
-  },
-  rightContainer: {
-    flexShrink: 1,
-    padding: 10,
-  },
-  freeShipping: {
-    paddingTop: 8,
-  },
-  qntyTxt: {
-    fontSize: 18,
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    padding: 10,
-  },
-});
 
 export default CartCard;

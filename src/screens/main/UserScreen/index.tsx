@@ -1,15 +1,22 @@
 import auth from '@react-native-firebase/auth';
 import crashlytics from '@react-native-firebase/crashlytics';
-import firestore from '@react-native-firebase/firestore';
 import remoteConfig from '@react-native-firebase/remote-config';
-import AppButton from '@src/components/Button';
+import AppButton from '@src/components/Button/Button';
+<<<<<<< HEAD:src/screens/main/UserScreen/index.tsx
+=======
 import colors from '@src/constants/colors';
+>>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12:src/screens/main/UserScreen.tsx
 import { useAppSelector } from '@src/redux/store';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import { Modal, Portal } from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 import Icon from 'react-native-vector-icons/AntDesign';
+<<<<<<< HEAD:src/screens/main/UserScreen/index.tsx
+import { addDummyData } from '@src/utils/helperFunctions';
+=======
+>>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12:src/screens/main/UserScreen.tsx
+import styles from './styles';
 
 const showNotification = () => {
   PushNotification.localNotification({
@@ -19,52 +26,11 @@ const showNotification = () => {
   });
 };
 
-function guidGenerator() {
-  let S4 = function () {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-  };
-  return (
-    S4() +
-    S4() +
-    '-' +
-    S4() +
-    '-' +
-    S4() +
-    '-' +
-    S4() +
-    '-' +
-    S4() +
-    S4() +
-    S4()
-  );
-}
-
-const addDummyData = async () => {
-  await firestore()
-    .collection('products')
-    .add({
-      catID: '009',
-      deliveryDate: 'Monday',
-      imgUrl:
-        'https://m.media-amazon.com/images/I/3187i1nSVTL._AC_SY1000_FMwebp_.jpg',
-      isFreeDelivery: false,
-      oldPrice: '20999',
-      price: '14498',
-      productID: guidGenerator(),
-      rating: 5,
-      title:
-        '2021 Apple MacBook Pro (14-inch/35.97 cm, Apple M1 Pro chip with 8‑core CPU and 14‑core GPU, 16GB RAM, 512GB SSD) - Space Grey  ',
-    })
-    .then(() => {
-      console.log('Addedddd');
-    });
-};
-
 const UserScreen = () => {
   const [haveOffer, setHaveOffer] = useState(false);
   const { personalDetails } = useAppSelector(state => state.user);
   const [visible, setVisible] = useState(false);
-
+  console.log(personalDetails);
   // console.log({ personalDetails });
   const fetchRemoteData = async () => {
     try {
@@ -98,7 +64,7 @@ const UserScreen = () => {
           <Icon name="user" size={35} />
         </View>
         <View>
-          <Text>{personalDetails.email}</Text>
+          <Text style={styles.emailStyle}>{personalDetails.email}</Text>
         </View>
         <Icon
           name="logout"
@@ -151,52 +117,5 @@ const UserScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  avatar: {
-    height: 50,
-    width: 50,
-    backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 50,
-  },
-  container: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
-    marginRight: 20,
-  },
-  offerTxtContainer: {
-    height: 20,
-    marginVertical: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnStyle: {
-    marginHorizontal: 100,
-    borderRadius: 15,
-    marginVertical: 15,
-  },
-  logoutBtn: {
-    backgroundColor: 'red',
-    marginVertical: 50,
-    marginHorizontal: 100,
-  },
-  userCard: {
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    height: 100,
-    padding: 20,
-    margin: 10,
-    borderRadius: 20,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  containerStyle: {
-    backgroundColor: 'white',
-    padding: 20,
-    justifyContent: 'center',
-  },
-});
 
 export default UserScreen;

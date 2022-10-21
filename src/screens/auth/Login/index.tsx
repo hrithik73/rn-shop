@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
-import AppButton from '@src/components/Button';
-import AppTextInput from '@src/components/Input';
-import colors from '@src/constants/colors';
+import AppButton from '@src/components/Button/Button';
+import AppTextInput from '@src/components/Input/Input';
 import globalStyles from '@src/constants/globalStyles';
 import { useAppDispatch } from '@src/redux/store';
 import { logInUser } from '@src/redux/thunk/userThunks';
 import { AuthStackNavigatorProps } from '@src/types/NavigationTypes';
+import styles from './style';
 
 const Login = () => {
   //Todo:- Writing a better logic for this
@@ -82,22 +82,5 @@ const Login = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-  },
-  container: {
-    marginTop: 150,
-  },
-  signUpInbtn: {
-    backgroundColor: colors.grey,
-  },
-  orTxt: {
-    paddingTop: 15,
-    fontSize: 18,
-    alignSelf: 'center',
-  },
-});
 
 export default Login;

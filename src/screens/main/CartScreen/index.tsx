@@ -1,11 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
-import AppButton from '@src/components/Button';
-import CartCard from '@src/components/CartCard';
-import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
-import colors from '@src/constants/colors';
-import { useAppSelector } from '@src/redux/store';
-import { CartStackNavigatorProps } from '@src/types/NavigationTypes';
-import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
 import React, { useState } from 'react';
 import {
   Button,
@@ -13,14 +5,23 @@ import {
   Pressable,
   RefreshControl,
   SafeAreaView,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+import AppButton from '@src/components/Button/Button';
+import CartCard from '@src/components/CartCard';
+import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
+import { useAppSelector } from '@src/redux/store';
+import { RootStackNavigatorProps } from '@src/types/NavigationTypes';
+import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
+
+import styles from './styles';
+
 const CartScreen = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const navigation = useNavigation<CartStackNavigatorProps>();
+  const navigation = useNavigation<RootStackNavigatorProps>();
   const { cartProducts: cartData } = useAppSelector(state => state.cart);
 
   // TODO:- Add refresh
@@ -56,15 +57,23 @@ const CartScreen = () => {
         />
       ) : (
         <View style={styles.heading}>
-          <Text>Cart is Empty, Please Add something</Text>
+          <Text style={styles.emptyTxt}>
+            Cart is Empty, Please Add something
+          </Text>
           {/* <Lottie
             source={require('../../assets/67163-empty-cart.json')}
             autoPlay
             // loop
           /> */}
-          <Button
-            title="Go back to Shoping"
-            onPress={() => navigation.navigate('ProductDetails')}
+          <AppButton
+            icon="shoppingcart"
+            customStyle={styles.goToShopingBtn}
+            text="Go Back to Shoping"
+            onPress={() =>
+              navigation.navigate('Home', {
+                screen: 'HomeScreen',
+              })
+            }
           />
         </View>
       )}
@@ -77,11 +86,15 @@ const CartScreen = () => {
           </Text>
         </View>
         <AppButton
+          icon="arrowright"
           customStyle={styles.paymentBtn}
           text="Checkout"
           onPress={() =>
-            navigation.navigate('Payment', {
-              totalPrice: getTotalPrice(),
+            navigation.navigate('Cart', {
+              screen: 'Payment',
+              params: {
+                totalPrice: getTotalPrice(),
+              },
             })
           }
         />
@@ -89,39 +102,5 @@ const CartScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-  },
-  heading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkoutCard: {
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: colors.white,
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
-    width: '100%',
-    flex: 1,
-    height: 100,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  paymentBtn: {
-    width: '50%',
-    marginHorizontal: 0,
-    margin: 0,
-  },
-  totalPrice: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
 
 export default CartScreen;

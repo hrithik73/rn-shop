@@ -13,13 +13,14 @@ const initialState: UserInitStateType = {
 export default (state = initialState, action: any) => {
   switch (action.type) {
     case USER_LOGGED_IN:
+      const { email, userId, name } = action.payload;
       return {
         ...state,
         isLoggedIn: true,
         personalDetails: {
-          userId: action.payload.userId,
-          email: action.payload.email,
-          name: action.payload.name,
+          userId: userId,
+          email: email,
+          name: name,
         },
       };
 

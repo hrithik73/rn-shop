@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-import AppButton from '@src/components/Button';
-import AppTextInput from '@src/components/Input';
-import colors from '@src/constants/colors';
+import AppButton from '@src/components/Button/Button';
+import AppTextInput from '@src/components/Input/Input';
 import globalStyles from '@src/constants/globalStyles';
 import { useAppDispatch } from '@src/redux/store';
 import { signUpuser } from '@src/redux/thunk/userThunks';
+import styles from './styles';
 
 type HomeStackNavigationProps = NativeStackNavigationProp<any>;
 
@@ -99,27 +99,5 @@ const SignUp = () => {
     </SafeAreaView>
   );
 };
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-  },
-  container: {
-    marginTop: 100,
-  },
-  logInbtn: {
-    marginTop: 20,
-    marginHorizontal: 30,
-  },
-  signUpInbtn: {
-    backgroundColor: colors.grey,
-    marginTop: 20,
-    marginHorizontal: 30,
-  },
-  orTxt: {
-    paddingTop: 15,
-    fontSize: 18,
-    alignSelf: 'center',
-  },
-});
 
 export default SignUp;

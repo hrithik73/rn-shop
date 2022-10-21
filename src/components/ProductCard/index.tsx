@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
 import colors from '@src/constants/colors';
 import { HomeStackNavigationProps } from '@src/types/NavigationTypes';
 import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
+import styles from './styles';
 
 const ProductCard = ({ item }: any) => {
   const navigation = useNavigation<HomeStackNavigationProps>();
@@ -45,53 +46,4 @@ const ProductCard = ({ item }: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    height: 150,
-    flexDirection: 'row',
-    marginVertical: 10,
-    margin: 5,
-    borderRadius: 10,
-  },
-  productImg: {
-    width: '50%',
-    height: '100%',
-    resizeMode: 'contain',
-    backgroundColor: '#F9F9F9',
-  },
-  title: {
-    fontWeight: '500',
-    fontSize: 15,
-  },
-  rightContainer: {
-    flexShrink: 1,
-    padding: 5,
-  },
-  pricesContainer: {
-    flexDirection: 'row',
-    paddingTop: 10,
-  },
-  price: {
-    color: 'red',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  oldPrice: {
-    paddingLeft: 8,
-    alignSelf: 'center',
-    textDecorationLine: 'line-through',
-  },
-  discount: {
-    fontSize: 11,
-    paddingLeft: 4,
-    alignSelf: 'center',
-  },
-  deliveryDate: {
-    paddingTop: 10,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    paddingTop: 10,
-  },
-});
 export default ProductCard;

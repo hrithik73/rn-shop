@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, TextProps, TextStyle } from 'react-native';
-import colors from '@src/constants/colors';
+import { Text, TextProps, TextStyle } from 'react-native';
+import styles from './styles';
 
 type HeadingProp =
   | {
@@ -15,14 +15,5 @@ const Heading = ({ children, customStyles, ...props }: HeadingProp) => {
     </Text>
   );
 };
-const styles = StyleSheet.create({
-  heading: {
-    fontWeight: 'bold',
-    color: colors.black,
-    fontSize: 20,
-    textAlign: 'center',
-    marginVertical: 5,
-  },
-});
 
 export default Heading;

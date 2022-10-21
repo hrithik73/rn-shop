@@ -1,15 +1,13 @@
+import colors from '@src/constants/colors';
 import React from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TextInputProps,
-  View,
-} from 'react-native';
+import { Text, TextInput, TextInputProps, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-
+<<<<<<< HEAD:src/components/Input/Input.tsx
+=======
 import colors from '@src/constants/colors';
+>>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12:src/components/Input.tsx
+import styles from './styles';
 
 type AppTextInputProps = {
   control: any;
@@ -26,17 +24,11 @@ type EyeIconType = {
 };
 
 const EyeIcon = ({ showPass, onIconPress }: EyeIconType) => {
-  return showPass ? (
+  return (
     <Icon
-      name="eye"
+      name={showPass ? 'eye' : 'eye-off'}
       size={20}
-      onPress={() => onIconPress()}
-      style={styles.iconStyle}
-    />
-  ) : (
-    <Icon
-      name="eye-off"
-      size={20}
+      color={colors.black}
       onPress={onIconPress}
       style={styles.iconStyle}
     />
@@ -79,29 +71,5 @@ const AppTextInput = ({
     />
   );
 };
-
-const styles = StyleSheet.create({
-  inputContainer: {
-    marginHorizontal: 15,
-    marginVertical: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 15,
-    height: 50,
-    borderColor: colors.grey,
-    paddingLeft: 10,
-  },
-  errorText: {
-    paddingLeft: 5,
-    paddingTop: 5,
-    color: 'red',
-  },
-  iconStyle: {
-    position: 'absolute',
-    right: 13,
-    top: 13,
-  },
-});
 
 export default AppTextInput;

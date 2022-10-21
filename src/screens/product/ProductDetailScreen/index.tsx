@@ -1,10 +1,10 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import AppButton from '@src/components/Button';
+import AppButton from '@src/components/Button/Button';
 import Heading from '@src/components/Heading';
 import { CURRENCY_SIGNS } from '@src/constants/AppConstants';
 import colors from '@src/constants/colors';
@@ -17,6 +17,7 @@ import {
   RootStackNavigatorProps,
 } from '@src/types/NavigationTypes';
 import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
+import styles from './styles';
 
 type ProductScreenRouteProp = RouteProp<HomeStackType, 'ProductDetails'>;
 
@@ -84,9 +85,7 @@ const ProductDetailScreen = () => {
         <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>
           {product.rating}
         </Text>
-        <Text style={{ fontWeight: '200', fontSize: 12, left: 10 }}>
-          (200 Reviews)
-        </Text>
+        <Text style={styles.ratingStyle}>(200 Reviews)</Text>
       </View>
 
       {/* Price Card at Bottom */}
@@ -104,56 +103,5 @@ const ProductDetailScreen = () => {
     </SafeAreaView>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    marginHorizontal: 5,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 12,
-  },
-  heading: {
-    fontSize: 18,
-  },
-  heroImg: {
-    marginTop: 50,
-    resizeMode: 'contain',
-    height: '50%',
-    width: '100%',
-  },
-  priceCard: {
-    position: 'absolute',
-    bottom: 0,
-    height: 100,
-    width: '100%',
-    borderRadius: 30,
-    backgroundColor: colors.grey,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  productTitle: {
-    textAlign: 'left',
-    margin: 10,
-  },
-  priceTxt: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  addToCartBtn: {
-    width: 200,
-    marginTop: 0,
-    marginHorizontal: 0,
-  },
-  reviewContainer: {
-    flexDirection: 'row',
-    margin: 10,
-  },
-});
 
 export default ProductDetailScreen;

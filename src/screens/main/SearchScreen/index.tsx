@@ -2,9 +2,9 @@ import React, { useRef, useState } from 'react';
 import { useInfiniteHits, useSearchBox } from 'react-instantsearch-hooks';
 import {
   FlatList,
+  KeyboardAvoidingView,
   Pressable,
   SafeAreaView,
-  StyleSheet,
   Text,
   TextInput,
   View,
@@ -13,8 +13,9 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 import ProductCard from '@src/components/ProductCard';
 import colors from '@src/constants/colors';
+import styles from './styles';
 
-export default function SearchBox() {
+const SearchScreen = () => {
   const { query, refine } = useSearchBox();
   const [inputValue, setInputValue] = useState(query);
 
@@ -35,7 +36,7 @@ export default function SearchBox() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
           ref={inputRef}
@@ -71,45 +72,8 @@ export default function SearchBox() {
           }}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {},
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
-  },
-  input: {
-    borderRadius: 5,
-    backgroundColor: 'white',
-    height: 40,
-    width: '80%',
-    padding: 5,
-    marginHorizontal: 10,
-  },
-  iconContainer: {
-    height: 40,
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: colors.primary,
-  },
-  separator: {
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-  },
-  item: {
-    padding: 18,
-  },
-  notFoundTxt: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    marginTop: 200,
-    fontSize: 18,
-  },
-});
+export default SearchScreen;
