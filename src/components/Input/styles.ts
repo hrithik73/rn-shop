@@ -12,10 +12,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderColor: colors.grey,
     paddingLeft: 10,
-<<<<<<< HEAD
     color: colors.textColor,
-=======
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12
   },
   errorText: {
     paddingLeft: 5,

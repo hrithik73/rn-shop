@@ -15,12 +15,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginRight: 20,
   },
-<<<<<<< HEAD
   emailStyle: {
     color: 'black',
   },
-=======
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12
   offerTxtContainer: {
     height: 20,
     marginVertical: 100,

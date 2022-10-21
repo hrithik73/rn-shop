@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import colors from '@src/constants/colors';
-=======
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -21,10 +18,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '500',
     fontSize: 15,
-<<<<<<< HEAD
     color: colors.textColor,
-=======
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12
   },
   rightContainer: {
     flexShrink: 1,
@@ -43,26 +37,17 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     alignSelf: 'center',
     textDecorationLine: 'line-through',
-<<<<<<< HEAD
     color: colors.textColor,
-=======
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12
   },
   discount: {
     fontSize: 11,
     paddingLeft: 4,
     alignSelf: 'center',
-<<<<<<< HEAD
     color: colors.textColor,
   },
   deliveryDate: {
     paddingTop: 10,
     color: colors.black,
-=======
-  },
-  deliveryDate: {
-    paddingTop: 10,
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12
   },
   ratingContainer: {
     flexDirection: 'row',

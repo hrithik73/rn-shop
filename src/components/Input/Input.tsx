@@ -3,10 +3,6 @@ import React from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
 import { Text, TextInput, TextInputProps, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-<<<<<<< HEAD:src/components/Input/Input.tsx
-=======
-import colors from '@src/constants/colors';
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12:src/components/Input.tsx
 import styles from './styles';
 
 type AppTextInputProps = {

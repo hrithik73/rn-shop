@@ -2,20 +2,13 @@ import auth from '@react-native-firebase/auth';
 import crashlytics from '@react-native-firebase/crashlytics';
 import remoteConfig from '@react-native-firebase/remote-config';
 import AppButton from '@src/components/Button/Button';
-<<<<<<< HEAD:src/screens/main/UserScreen/index.tsx
-=======
-import colors from '@src/constants/colors';
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12:src/screens/main/UserScreen.tsx
 import { useAppSelector } from '@src/redux/store';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { Modal, Portal } from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 import Icon from 'react-native-vector-icons/AntDesign';
-<<<<<<< HEAD:src/screens/main/UserScreen/index.tsx
 import { addDummyData } from '@src/utils/helperFunctions';
-=======
->>>>>>> 18b3a1c770d9b9770d7f0f1f3f3b346336251c12:src/screens/main/UserScreen.tsx
 import styles from './styles';
 
 const showNotification = () => {
