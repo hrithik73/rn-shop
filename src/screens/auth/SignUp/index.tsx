@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
 import AppButton from '@src/components/Button/Button';
 import AppTextInput from '@src/components/Input/Input';
@@ -46,7 +46,7 @@ const SignUp = () => {
         rules={{
           required: {
             value: true,
-            message: 'This field is required',
+            message: 'Name is required',
           },
         }}
       />
@@ -58,7 +58,7 @@ const SignUp = () => {
         rules={{
           required: {
             value: true,
-            message: 'This field is required',
+            message: 'Email can not be empty',
           },
 
           pattern: {
@@ -74,7 +74,7 @@ const SignUp = () => {
         rules={{
           required: {
             value: true,
-            message: 'This Field is Required',
+            message: 'Pass can not be empty',
           },
           minLength: {
             value: 8,

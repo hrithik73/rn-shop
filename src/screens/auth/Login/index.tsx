@@ -42,7 +42,7 @@ const Login = () => {
         rules={{
           required: {
             value: true,
-            message: 'This field is required',
+            message: 'Email is required',
           },
           pattern: {
             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -57,7 +57,7 @@ const Login = () => {
         rules={{
           required: {
             value: true,
-            message: 'This field is required',
+            message: 'Password is required',
           },
           // pattern: {
           //   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
@@ -65,7 +65,7 @@ const Login = () => {
           // },
           minLength: {
             value: 8,
-            message: 'Minimum 8 char is required',
+            message: 'Password must be atleast 8 charaters',
           },
         }}
         onIconPress={iconPressHandler}
