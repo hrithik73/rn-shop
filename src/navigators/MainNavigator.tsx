@@ -8,8 +8,8 @@ import colors from '@src/constants/colors';
 import CartScreen from '@src/screens/main/CartScreen';
 import HomeScreen from '@src/screens/main/HomeScreen';
 import UserScreen from '@src/screens/main/UserScreen';
-import ProductDetailScreen from '@src/screens/product/ProductDetailScreen';
-import ProductScreen from '@src/screens/product/ProductScreen';
+import ProductDetailScreen from '@src/screens/ProductDetailScreen';
+import ProductScreen from '@src/screens/ProductScreen';
 import SearchScreen from '@src/screens/main/SearchScreen';
 import {
   CartStackType,

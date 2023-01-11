@@ -9,21 +9,12 @@ const Auth = createNativeStackNavigator<AuthStackType>();
 
 const AuthNavigator = () => {
   return (
-    <Auth.Navigator>
-      <Auth.Screen
-        name="Login"
-        component={Login}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Auth.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{
-          headerTitle: '',
-        }}
-      />
+    <Auth.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Auth.Screen name="Login" component={Login} />
+      <Auth.Screen name="SignUp" component={SignUp} />
     </Auth.Navigator>
   );
 };

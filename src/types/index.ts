@@ -2,28 +2,28 @@
     --------------Types for Reducer States are defined here--------------
 */
 // User Schema
-export type UserInitStateType = {
+export interface IUserInitState {
   personalDetails: {
     email: string;
     userId: string;
     name: string;
   };
   isLoggedIn: boolean;
-};
+}
 
-export type ProductInitStateType = {
+export interface IProductInitState {
   products: ProductType[];
   categories: CategoryType[];
   isFetchingProducts: boolean;
   isFetchingCategories: boolean;
-};
+}
 
 /**
  * --------------Other Types are defined here-----------------------------
  */
 
 //Product Schema
-export type ProductType = {
+export interface ProductType {
   catID: string;
   deliveryDate: String;
 
@@ -34,15 +34,15 @@ export type ProductType = {
   productID: string;
   rating: number;
   title: string;
-};
+}
 
-export type CategoryType = {
+export interface CategoryType {
   name: string;
   image: string;
   catId: string;
-};
+}
 
-export type CartItemProps = {
+export interface CartItemProps {
   productData: ProductType;
   qnty: number;
-};
+}

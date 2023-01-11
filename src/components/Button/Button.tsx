@@ -6,7 +6,7 @@ import styles from './styles';
 
 type ButtonProps = {
   text: string;
-  onPress: any;
+  onPress: () => void;
   customStyle?: ViewStyle;
   icon?: string;
 };

@@ -29,6 +29,8 @@ const ProductDetailScreen = () => {
 
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(state => state.user.personalDetails);
+  // const selectedProduct = useAppSelector(state => state.products.products);
+  // console.log({ selectedProduct });
 
   const [product, setProduct] = useState<ProductType>({
     catID: '',

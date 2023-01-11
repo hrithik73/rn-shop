@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Button,
   FlatList,
   Pressable,
   RefreshControl,

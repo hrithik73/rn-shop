@@ -1,4 +1,4 @@
-import { ProductInitStateType } from '@src/types';
+import { IProductInitState } from '@src/types';
 import {
   FETCHING_PRODUCTS,
   SET_PRODUCTS,
@@ -7,7 +7,7 @@ import {
   FETCHING_CATEGORIES,
 } from '@src/redux/constants';
 
-const initialState: ProductInitStateType = {
+const initialState: IProductInitState = {
   products: [],
   categories: [],
   isFetchingProducts: false,
