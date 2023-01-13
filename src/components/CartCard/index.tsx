@@ -16,12 +16,12 @@ import { HomeStackNavigationProps } from '@src/types/NavigationTypes';
 import { numberToCommaSeperatedPrice } from '@src/utils/helperFunctions';
 import styles from './styles';
 
-type cartProductsType = {
+type CartProductsType = {
   qnty: number;
 } & ProductType;
 
 type CartItemProps = {
-  productData: cartProductsType;
+  productData: CartProductsType;
 };
 
 const CartCard = ({ productData }: CartItemProps) => {

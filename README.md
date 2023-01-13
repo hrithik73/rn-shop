@@ -27,3 +27,12 @@ An ecommerce app to polish react native skills
 - React Navigation
 - Redux
 - Typescript
+
+### Features to add
+
+- Authentications
+  - Sign in with Google
+  - Sign in wiht Phone
+- User edit profile
+- Admin panel to add produts
+- Custom Backend

@@ -2,10 +2,10 @@ import { StripeProvider } from '@stripe/stripe-react-native';
 import React, { useEffect, useState } from 'react';
 import { InstantSearch } from 'react-instantsearch-hooks';
 import { StatusBar } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import { Provider } from 'react-redux';
+import { NativeBaseProvider } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { ALGOLIA_INDEX_NAME, searchClient } from '@src/configs/algolia';
@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PaperProvider>
+      <NativeBaseProvider>
         <StatusBar barStyle="dark-content" />
         <PersistGate loading={null} persistor={persistor}>
           <StripeProvider
@@ -49,7 +49,7 @@ const App = () => {
             </InstantSearch>
           </StripeProvider>
         </PersistGate>
-      </PaperProvider>
+      </NativeBaseProvider>
     </Provider>
   );
 };

@@ -5,7 +5,6 @@ import AppButton from '@src/components/Button/Button';
 import { useAppSelector } from '@src/redux/store';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { Modal, Portal } from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { addDummyData } from '@src/utils/helperFunctions';
@@ -90,7 +89,7 @@ const UserScreen = () => {
         onPress={() => addDummyData()}
       />
 
-      <Portal>
+      {/* <Portal>
         <Modal
           visible={visible}
           onDismiss={() => setVisible(false)}
@@ -106,7 +105,7 @@ const UserScreen = () => {
             onPress={logoutHandler}
           />
         </Modal>
-      </Portal>
+      </Portal> */}
     </SafeAreaView>
   );
 };

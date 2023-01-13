@@ -6,15 +6,15 @@ import {
   REMOVE_FROM_CART,
 } from '@src/redux/constants';
 
-type cartProductsType = {
+type CartProductsType = {
   qnty: number;
 } & ProductType;
 
-type cartStateType = {
-  cartProducts: cartProductsType[];
+type CartStateType = {
+  cartProducts: CartProductsType[];
 };
 
-const initialCartState: cartStateType = {
+const initialCartState: CartStateType = {
   cartProducts: [],
 };
 
@@ -48,7 +48,7 @@ export default (state = initialCartState, action: any) => {
 
     case INCREASE_QNTY:
       const inCrementedState = state.cartProducts.map(item => {
-        // If id match increment the qntity
+        // If id match increment the quntity
         if (item.productID === action.payload.productID) {
           return {
             ...item,
