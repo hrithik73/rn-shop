@@ -94,7 +94,7 @@ const SignUp = () => {
       <AppButton
         customStyle={styles.logInbtn}
         text="Login"
-        onPress={() => navigator.navigate('SignUp')}
+        onPress={() => navigator.navigate('Login')}
       />
     </SafeAreaView>
   );
