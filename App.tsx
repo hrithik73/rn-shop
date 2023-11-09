@@ -5,7 +5,6 @@ import { StatusBar } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import { Provider } from 'react-redux';
-import { NativeBaseProvider } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { ALGOLIA_INDEX_NAME, searchClient } from '@src/configs/algolia';
@@ -36,20 +35,18 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <NativeBaseProvider>
-        <StatusBar barStyle="dark-content" />
-        <PersistGate loading={null} persistor={persistor}>
-          <StripeProvider
-            publishableKey={publishableKey}
-            merchantIdentifier="merchant.identifier">
-            <InstantSearch
-              searchClient={searchClient}
-              indexName={ALGOLIA_INDEX_NAME}>
-              <AppNavigator />
-            </InstantSearch>
-          </StripeProvider>
-        </PersistGate>
-      </NativeBaseProvider>
+      <StatusBar barStyle="dark-content" />
+      <PersistGate loading={null} persistor={persistor}>
+        <StripeProvider
+          publishableKey={publishableKey}
+          merchantIdentifier="merchant.identifier">
+          <InstantSearch
+            searchClient={searchClient}
+            indexName={ALGOLIA_INDEX_NAME}>
+            <AppNavigator />
+          </InstantSearch>
+        </StripeProvider>
+      </PersistGate>
     </Provider>
   );
 };
