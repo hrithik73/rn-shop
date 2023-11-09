@@ -1,17 +1,10 @@
-// prettier-ignore
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
+  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "jsx": "react",
-    /* Visit https://aka.ms/tsconfig.json to read more about this file */
     "strict": true,
-    "module": "commonjs",
-    "esModuleInterop": true,
-    /* Completeness */
-    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-          "@src/*": ["src/*/index", "src/*"]
-     }
+      "~/*": ["*"]
+    }
   }
 }
